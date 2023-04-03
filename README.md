@@ -1,6 +1,6 @@
 # Unit Minions
 
-## 0.0.1 - 目标：根据业务代码生成测试代码
+# 目标：根据业务代码生成测试代码
 
 训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb)
 
@@ -8,10 +8,8 @@
 
 基本思路：
 
-因为时间有限的情况下，基于 OpenAI 的数据来完善。但是，OpenAI 编写的测试用例不一定靠谱，所以让他生成业务代码。
-
-（时间充裕的情况下，可以分析 AST 来合并第一和第二步，也是未来的计划）
-
+- 在时间有限的情况下，基于 OpenAI 的数据来完善。但是，OpenAI 编写的测试用例不一定靠谱，所以让他生成业务代码。
+- 在时间充裕的情况下，可以分析 AST 来合并第一和第二步，也是比较合理的方案，毕竟 OpenAI 的 API 很贵。
 
 ### 步骤 1. 准备数据（代码见：[Unit Processor](https://github.com/unit-mesh/unit-processor) ）
 
