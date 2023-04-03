@@ -11,7 +11,7 @@
 - 在时间有限的情况下，基于 OpenAI 的数据来完善。但是，OpenAI 编写的测试用例不一定靠谱，所以让他生成业务代码。
 - 在时间充裕的情况下，可以分析 AST 来合并第一和第二步，也是比较合理的方案，毕竟 OpenAI 的 API 很贵。
 
-### 步骤 1. 准备数据（代码见：[Unit Processor](https://github.com/unit-mesh/unit-processor) ）
+### 步骤 1. 准备数据
 
 1. 下载 GitHub 上的项目（需要包含测试用例）
 2. 建立每个项目的 `src/main` 下的 Java 文件 map，如果同时存在对应的测试文件，则拉入的数据集中。
@@ -40,7 +40,7 @@ class TestProcessorTest {
 {"classInfo": "com.thoughtworks.go.security.AESEncrypter(AESCipherProvider)\n- fields: ENCODER:Base64.Encoder, DECODER:Base64.Decoder, cipherProvider:AESCipherProvider, ivProvider:IVProvider\n- methods: createIVProviderInstance(): IVProvider, canDecrypt(String): boolean, encrypt(String): String, decrypt(String): String, createSecretKeySpec(): SecretKeySpec", "testMethod": "public class AESEncrypterTest {\n\n    private AESEncrypter aesEncrypter;\n\n    @Test\n    public void shouldGenerateEncryptedText() throws CryptoException {\n        String encrypt = aesEncrypter.encrypt(\"p@ssw0rd\");\n        assertThat(encrypt).startsWith(\"AES\");\n        assertThat(encrypt.split(\":\")).hasSize(3);\n    }\n}\n", "id": "task_0"}
 ```
 
-### 步骤 2. 使用 OpenAI Davinci 编写实现代码（代码见：[test-to-code.py](https://github.com/unit-mesh/unit-prompter/blob/master/test-to-code.py)）
+### 步骤 2. 使用 OpenAI Davinci 编写实现代码（代码见：[test-to-code.py](test-to-code.py)）
 
 
 1. 将上面的数据转换为 JSONL，合并成 prompt。
