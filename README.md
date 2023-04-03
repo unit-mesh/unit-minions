@@ -5,7 +5,7 @@
 训练机器：OpenBayes（用我的专用邀请链接，注册 OpenBayes，双方各获得 60 分钟 RTX 3090 使用时长，支持累积，永久有效：
 https://openbayes.com/console/signup?r=phodal_uVxU) A100 大概 1 小时，使用 A0390 大概 3 小时。
 
-训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb)
+训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb) 或者直接使用 OpenBayes 容器：https://openbayes.com/console/phodal/containers/JBx5YD7HTdS
 
 代码生成测试用例的 Lora 见：[https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.1](https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.1)
 
