@@ -4,7 +4,7 @@
 
 训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb)
 
-代码生成测试用例的 Lora 见：[alpaca-lora.zip ](https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.1)
+代码生成测试用例的 Lora 见：[https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.1](https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.1)
 
 基本思路：
 
