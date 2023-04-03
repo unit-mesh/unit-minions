@@ -1,0 +1,1 @@
+{"input": " Bingo", "output": "\n\nMap { \nCategory 1 { Display Bingo Board, Select Bingo Numbers, Mark Bingo Numbers } \nCategory 2 { Generate Random Numbers, Display Winning Combinations, Award Prizes } \nCategory 3 { Create Player Profiles, Track Player Statistics, Offer Player Rewards } \nCategory 4 { Provide Customer Support, Monitor Game Activity, Ensure Fair Play } \n}"}
