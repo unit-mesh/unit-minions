@@ -7,8 +7,8 @@ PS：训练烧钱……（调用 OpenAI 生成数据、云 GPU），如果你觉
 
 <table>
   <tr>
-    <td><img src="alipay.pic.jpg"  alt="1" width = 360px height = 640px ></td>
-    <td><img src="zsxq.pic.jpg" alt="2" width = 360px height = 640px></td>
+    <td><img src="images/alipay.pic.jpg"  alt="1" width = 360px  ></td>
+    <td><img src="images/zsxq.pic.jpg" alt="2" width = 360px ></td>
   </tr>
 </table>
 
