@@ -29,7 +29,7 @@ PS：训练烧钱……（调用 OpenAI 生成数据、云 GPU），如果你觉
 
 ## 基本知识
 
-相关背景
+相关背景：
 
 1. 基础模型：Meta 开源 LLaMA 系列模型
 2. Instruct-Tune：[https://github.com/tloen/alpaca-lora](https://github.com/tloen/alpaca-lora)
@@ -204,7 +204,7 @@ AC 1:  莉莉妈可以选择宝贝出行服务
 
 训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb)
 
-## 代码辅助与生成
+## 训练 3：代码辅助
 
 训练结果 Lora 见：https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.3
 
@@ -235,3 +235,5 @@ PostService(PostRepository, UserRepository, ImageService)
 ### 步骤 2. 训练
 
 训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb)
+
+
