@@ -34,6 +34,8 @@ https://openbayes.com/console/signup?r=phodal_uVxU) A100 大概 1 小时，使�
 
 代码生成测试用例的 Lora 见：[https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.1](https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.1)
 
+![](images/test-process.jpeg)
+
 基本思路：
 
 - 在时间有限的情况下，基于 OpenAI 的数据来完善。但是，OpenAI 编写的测试用例不一定靠谱，所以让他生成业务代码。
