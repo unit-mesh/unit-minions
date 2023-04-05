@@ -23,7 +23,7 @@ PS：训练烧钱……（调用 OpenAI 生成数据、云 GPU），如果你觉
 - 在时间有限的情况下，基于 OpenAI 的数据来完善。但是，OpenAI 编写的测试用例不一定靠谱，所以让他生成业务代码。
 - 在时间充裕的情况下，可以分析 AST 来合并第一和第二步，也是比较合理的方案，毕竟 OpenAI 的 API 很贵。
 
-### 步骤 1. 准备数据
+## 步骤 1. 准备数据
 
 1. 下载 GitHub 上的项目（需要包含测试用例）
 2. 建立每个项目的 `src/main` 下的 Java 文件 map，如果同时存在对应的测试文件，则拉入的数据集中。
@@ -48,11 +48,9 @@ class TestProcessorTest {
 
 最后，生成的数据如下：
 
-```json
 {"classInfo": "com.thoughtworks.go.security.AESEncrypter(AESCipherProvider)\n- fields: ENCODER:Base64.Encoder, DECODER:Base64.Decoder, cipherProvider:AESCipherProvider, ivProvider:IVProvider\n- methods: createIVProviderInstance(): IVProvider, canDecrypt(String): boolean, encrypt(String): String, decrypt(String): String, createSecretKeySpec(): SecretKeySpec", "testMethod": "public class AESEncrypterTest {\n\n    private AESEncrypter aesEncrypter;\n\n    @Test\n    public void shouldGenerateEncryptedText() throws CryptoException {\n        String encrypt = aesEncrypter.encrypt(\"p@ssw0rd\");\n        assertThat(encrypt).startsWith(\"AES\");\n        assertThat(encrypt.split(\":\")).hasSize(3);\n    }\n}\n", "id": "task_0"}
-```
 
-### 步骤 2. 使用 OpenAI Davinci 编写实现代码（代码见：[test-to-code.py](test-to-code.py)）
+## 步骤 2. 使用 OpenAI Davinci 编写实现代码（代码见：[test-to-code.py](test-to-code.py)）
 
 
 1. 将上面的数据转换为 JSONL，合并成 prompt。
@@ -112,10 +110,9 @@ public class AbstractContractValidatorTest {
 
 ```
 
-### 步骤 3. 训练
+## 步骤 3. 训练
 
 训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb)
-
 
 # 训练 2：拆分用户故事
 
@@ -137,5 +134,50 @@ public class AbstractContractValidatorTest {
 如下所示：
 
 ![](images/alpaca-user-story-lora.jpeg)
+
+
+## 步骤 1. 准备数据
+
+1. 调用 OpenAI 按分类创建用户任务。prompt 如下：
+
+```markdown
+Design a User Story Mapping for ${domain} application based on your understanding. Here are the requirements: 
+
+1. Your user story map should include only user tasks to demonstrate how users will interact with the application.
+2. Our user story map should be based on your understanding of the ${domain} application and its users, and should be designed to address their needs and pain points.
+3. You may use any tools or formats you choose to create your user story map, but it should be easily shareable and understandable by stakeholders.
+4. Your expression should be more concise and clear.
+5. Your return should be like as follows:
+
+###
+User Tasks:
+1. ...
+###
+```
+
+2. 调用 OpenAI 根据用户任务创建用户故事。prompt 如下：
+
+```markdown
+为下面的需求编写用户故事：${domain} 应用的 ${story_name} 功能。 要求如下：
+
+1. 必须要考虑尽可能考虑各种异常场景，添加更多的 AC。
+2. 你的返回模板如下所示：
+
+###
+用户故事：可以选择宝贝出行服务
+作为 莉莉妈
+我想 在滴滴打车的手机客户端里选择宝贝出行服务
+以便于 我能够带宝宝打车出行的时候打到有儿童座椅的车
+
+AC 1:  莉莉妈可以选择宝贝出行服务
+假设 xxx
+当 xxx
+于是 xxx
+###
+```
+
+## 步骤 2. 训练
+
+训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb)
 
 
