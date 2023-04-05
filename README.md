@@ -1,7 +1,11 @@
 # Unit Minions
 
-训练机器：OpenBayes（用我的专用邀请链接，注册 OpenBayes，双方各获得 60 分钟 RTX 3090 使用时长，支持累积，永久有效：
-https://openbayes.com/console/signup?r=phodal_uVxU) A100 大概 1 小时，使用 A0390 大概 3 小时。
+# 基于 Meta 的 Llama 训练 LRA
+
+训练步骤见：
+
+- 方式 1：直接使用：[alpaca-lora.ipynb](alpaca-lora.ipynb) 
+- 方式 2：直接使用 OpenBayes 容器：https://openbayes.com/console/phodal/containers/JBx5YD7HTdS
 
 PS：训练烧钱……（调用 OpenAI 生成数据、云 GPU），如果你觉得帮到你，可以通过以下方式，帮助我们继续往前。
 
@@ -12,9 +16,21 @@ PS：训练烧钱……（调用 OpenAI 生成数据、云 GPU），如果你觉
   </tr>
 </table>
 
-# 训练 1：根据业务代码生成测试代码
+所以……，没钱的……
 
-训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb) 或者直接使用 OpenBayes 容器：https://openbayes.com/console/phodal/containers/JBx5YD7HTdS
+训练机器：OpenBayes（用我的专用邀请链接，注册 OpenBayes，双方各获得 60 分钟 RTX 3090 使用时长，支持累积，永久有效：
+https://openbayes.com/console/signup?r=phodal_uVxU) A100 大概 1 小时，使用 A0390 大概 3 小时。
+
+## 基本知识
+
+相关背景
+
+1. 基础模型：Meta 开源 LLaMA 系列模型
+2. Instruct-Tune：[https://github.com/tloen/alpaca-lora](https://github.com/tloen/alpaca-lora)
+
+由于，我们的目标不是对模型调优，生成通用的模型。而是训练特定用途的 Lora，所以，我们没有加入：[Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) 中的数据。因此，时间更短，如 8000+ 测试代码只需要 1 小时，3400+ 的用户故事只需要 25 分钟。
+
+## 训练 1：根据业务代码生成测试代码
 
 代码生成测试用例的 Lora 见：[https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.1](https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.1)
 
@@ -23,7 +39,7 @@ PS：训练烧钱……（调用 OpenAI 生成数据、云 GPU），如果你觉
 - 在时间有限的情况下，基于 OpenAI 的数据来完善。但是，OpenAI 编写的测试用例不一定靠谱，所以让他生成业务代码。
 - 在时间充裕的情况下，可以分析 AST 来合并第一和第二步，也是比较合理的方案，毕竟 OpenAI 的 API 很贵。
 
-## 步骤 1. 准备数据
+### 步骤 1. 准备数据
 
 1. 下载 GitHub 上的项目（需要包含测试用例）
 2. 建立每个项目的 `src/main` 下的 Java 文件 map，如果同时存在对应的测试文件，则拉入的数据集中。
@@ -50,7 +66,7 @@ class TestProcessorTest {
 
 {"classInfo": "com.thoughtworks.go.security.AESEncrypter(AESCipherProvider)\n- fields: ENCODER:Base64.Encoder, DECODER:Base64.Decoder, cipherProvider:AESCipherProvider, ivProvider:IVProvider\n- methods: createIVProviderInstance(): IVProvider, canDecrypt(String): boolean, encrypt(String): String, decrypt(String): String, createSecretKeySpec(): SecretKeySpec", "testMethod": "public class AESEncrypterTest {\n\n    private AESEncrypter aesEncrypter;\n\n    @Test\n    public void shouldGenerateEncryptedText() throws CryptoException {\n        String encrypt = aesEncrypter.encrypt(\"p@ssw0rd\");\n        assertThat(encrypt).startsWith(\"AES\");\n        assertThat(encrypt.split(\":\")).hasSize(3);\n    }\n}\n", "id": "task_0"}
 
-## 步骤 2. 使用 OpenAI Davinci 编写实现代码（代码见：[test-to-code.py](test-to-code.py)）
+### 步骤 2. 使用 OpenAI Davinci 编写实现代码（代码见：[test-to-code.py](test-to-code.py)）
 
 
 1. 将上面的数据转换为 JSONL，合并成 prompt。
@@ -110,11 +126,11 @@ public class AbstractContractValidatorTest {
 
 ```
 
-## 步骤 3. 训练
+### 步骤 3. 训练
 
 训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb)
 
-# 训练 2：拆分用户故事
+## 训练 2：拆分用户故事
 
 训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb) 或者直接使用 OpenBayes 容器：https://openbayes.com/console/phodal/containers/JBx5YD7HTdS
 
@@ -136,7 +152,7 @@ public class AbstractContractValidatorTest {
 ![](images/alpaca-user-story-lora.jpeg)
 
 
-## 步骤 1. 准备数据
+### 步骤 1. 准备数据
 
 1. 调用 OpenAI 按分类创建用户任务。prompt 如下：
 
@@ -176,8 +192,7 @@ AC 1:  莉莉妈可以选择宝贝出行服务
 ###
 ```
 
-## 步骤 2. 训练
+### 步骤 2. 训练
 
 训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb)
-
 
