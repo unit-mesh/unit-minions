@@ -4,7 +4,7 @@ Roadmap：
 
 - 训练 1：测试代码生成
 - 训练 2：生成用户故事
-- 训练 3：生成代码（进行中）
+- 训练 3：生成代码
 - 训练 4：生成 API 代码（设计中）
 - 训练 5：……
 - 训练 6：……
@@ -204,3 +204,34 @@ AC 1:  莉莉妈可以选择宝贝出行服务
 
 训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb)
 
+## 代码辅助与生成
+
+训练结果 Lora 见：https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.3
+
+### 步骤 1. 准备数据
+
+1. 下载 GitHub 上的项目（需要包含测试用例）
+2. 遍历 `src/main` 下的 Java 文件。
+3. 生成每个类的基本信息：
+```
+PostService(PostRepository, UserRepository, ImageService)
+- fields: postRepository:PostRepository, userRepository:UserRepository, userPosts:Set<Post>, imageService:ImageService
+- methods: findAll(): List<Post>, addNewPost(Post): Post, saveImageToPost(String, MultipartFile, Post): int
+```
+4. 生成 instruct
+
+格式：
+
+- instruction: Implement the method ${methodName}
+- input: ${classInformation}
+- output: ${code}
+
+示例：
+
+```
+{"instruction":"Implement the method action","input":"com.thoughtworks.go.config.rules.AbstractDirective(DirectiveType, DirectiveType, String, String, String)\n- fields: action:String, type:String, resource:String, configErrors:ConfigErrors, directiveType:DirectiveType\n- methods: validate(ValidationContext): void, isInvalid(String, List<String>): boolean, matchesAction(String): boolean, matchesType(Class<? extends Validatable>): boolean, matchesResource(String): boolean, errors(): ConfigErrors, addError(String, String): void, equals(Object): boolean, action(): String, type(): String, resource(): String, hashCode(): int, hasErrors(): boolean, getDirectiveType(): DirectiveType","output":"public abstract class AbstractDirective implements Directive {\n\n    @ConfigAttribute(value = \"action\", optional = false)\n    protected String action;\n\n    @ConfigAttribute(value = \"type\", optional = false)\n    protected String type;\n\n    @ConfigValue\n    private String resource;\n\n    private final ConfigErrors configErrors = new ConfigErrors();\n\n    private DirectiveType directiveType;\n\n    public AbstractDirective(DirectiveType allow) {\n        this.directiveType = allow;\n    }\n\n    public AbstractDirective(DirectiveType allow, String action, String type, String resource) {\n        this.directiveType = allow;\n        this.action = action;\n        this.type = type;\n        this.resource = resource;\n    }\n\n    @Override\n    public String action() {\n        return this.action;\n    }\n}\n"}
+```
+
+### 步骤 2. 训练
+
+训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb)
