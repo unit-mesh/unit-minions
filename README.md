@@ -123,10 +123,19 @@ public class AbstractContractValidatorTest {
 
 代码生成测试用例的 Lora 见：[https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.2](https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.2)
 
+结果：
+
+![User Story 结果](images/alpaca-user-story-training.jpg)
+
 
 基本思路：
 
 1. 结合常见的领域（如在线网站），借用 OpenAI 生成用户任务（如登录、浏览列表等等）
-2. 
+2. 根据用户故事生成用户故事。
+3. 训练 Alpaca LoRA。
+
+如下所示：
+
+![](images/alpaca-user-story-lora.jpeg)
 
 
