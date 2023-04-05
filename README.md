@@ -1,9 +1,18 @@
 # Unit Minions
 
-# 0.0.1 版本目标 => 根据业务代码生成测试代码
-
 训练机器：OpenBayes（用我的专用邀请链接，注册 OpenBayes，双方各获得 60 分钟 RTX 3090 使用时长，支持累积，永久有效：
 https://openbayes.com/console/signup?r=phodal_uVxU) A100 大概 1 小时，使用 A0390 大概 3 小时。
+
+PS：训练烧钱……（调用 OpenAI 生成数据、云 GPU），如果你觉得帮到你，可以通过以下方式，帮助我们继续往前。
+
+<table>
+  <tr>
+    <td><img src="alipay.pic.jpg"  alt="1" width = 360px height = 640px ></td>
+    <td><img src="zsxq.pic.jpg" alt="2" width = 360px height = 640px></td>
+  </tr>
+</table>
+
+# 训练 1：根据业务代码生成测试代码
 
 训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb) 或者直接使用 OpenBayes 容器：https://openbayes.com/console/phodal/containers/JBx5YD7HTdS
 
@@ -108,4 +117,16 @@ public class AbstractContractValidatorTest {
 训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb)
 
 
-# 0.0.2 版本目标 => 拆分用户故事
+# 训练 2：拆分用户故事
+
+训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb) 或者直接使用 OpenBayes 容器：https://openbayes.com/console/phodal/containers/JBx5YD7HTdS
+
+代码生成测试用例的 Lora 见：[https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.2](https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.2)
+
+
+基本思路：
+
+1. 结合常见的领域（如在线网站），借用 OpenAI 生成用户任务（如登录、浏览列表等等）
+2. 
+
+
