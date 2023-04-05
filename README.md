@@ -1,6 +1,6 @@
 # Unit Minions
 
-# 基于 Meta 的 Llama 训练 LRA
+# 基于 Meta 的 Llama 训练 LoRA
 
 训练步骤见：
 
