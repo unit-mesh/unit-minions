@@ -5,7 +5,8 @@
 训练步骤见：
 
 - 方式 1：直接使用：[alpaca-lora.ipynb](alpaca-lora.ipynb) 
-- 方式 2：直接使用 OpenBayes 容器：https://openbayes.com/console/phodal/containers/JBx5YD7HTdS
+- 方式 2：直接使用：[OpenBayes 容器](https://openbayes.com/console/phodal/containers/JBx5YD7HTdS) （PS：使用我的专用邀请链接，注册 OpenBayes，双方各获得 60 分钟 RTX 3090 使用时长，支持累积，永久有效：
+https://openbayes.com/console/signup?r=phodal_uVxU) ）
 
 PS：训练烧钱……（调用 OpenAI 生成数据、云 GPU），如果你觉得帮到你，可以通过以下方式，帮助我们继续往前。
 
@@ -15,11 +16,6 @@ PS：训练烧钱……（调用 OpenAI 生成数据、云 GPU），如果你觉
     <td><img src="images/zsxq.pic.jpg" alt="2" width = 240px ></td>
   </tr>
 </table>
-
-所以……，没钱的……
-
-训练机器：OpenBayes（用我的专用邀请链接，注册 OpenBayes，双方各获得 60 分钟 RTX 3090 使用时长，支持累积，永久有效：
-https://openbayes.com/console/signup?r=phodal_uVxU) A100 大概 1 小时，使用 A0390 大概 3 小时。
 
 ## 基本知识
 
