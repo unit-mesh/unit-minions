@@ -171,7 +171,24 @@ public class AbstractContractValidatorTest {
 ### 示例输出
 
 ```
+print(evaluate("write test", """
+public Set<String> listFilesUsingJavaIO(String dir) {
+    return Stream.of(new File(dir).listFiles())
+      .filter(file -> !file.isDirectory())
+      .map(File::getName)
+      .collect(Collectors.toSet());
+}
+""", 0.1, 0.75, 40, 4, 512))
 
+## Output:
+
+public class ListFilesUsingJavaIOTest {
+    @Test
+    public void shouldListFilesUsingJavaIO() {
+        Set<String> files = ListFilesUsingJavaIO.listFilesUsingJavaIO(new File("dir"));
+        assertThat(files, containsInAnyOrder("file1", "file2", "file3"));
+    }
+}
 ```
 
 ## 训练 2：拆分用户故事
