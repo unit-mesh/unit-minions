@@ -1,5 +1,15 @@
 # 《AI 研发提效研究：自己动手训练 LoRA》 
 
+LLaMA 系列在线视频：
+
+- 《[自制 AI 编程 Lora：手把手教会 Alpaca 编写测试代码](https://www.bilibili.com/video/BV1jg4y1G7Xc/)》
+- 《[自制 AI 编程助手：自定义数据集 + 开源大模型 LLaMA + LoRA 训练](https://www.bilibili.com/video/BV1Rh411u74H/)》
+- 《[自己动手训练个 AI 产品经理：手把手教会 LLaMA 编写详细需求](https://www.bilibili.com/video/BV1Us4y1N7rd/)》
+
+ChatGLM 系列在线视频：
+
+- TODOs
+
 Roadmap：
 
 - 训练 1：测试代码生成
@@ -12,11 +22,13 @@ Roadmap：
 
 # 基于 Meta 的 Llama 训练 LoRA
 
-在线视频：
+相关背景：
 
-- [自制 AI 编程 Lora：手把手教会 Alpaca 编写测试代码](https://www.bilibili.com/video/BV1jg4y1G7Xc/)
-- [自制 AI 编程助手：自定义数据集 + 开源大模型 LLaMA + LoRA 训练](https://www.bilibili.com/video/BV1Rh411u74H/)
-- [自己动手训练个 AI 产品经理：手把手教会 LLaMA 编写详细需求](https://www.bilibili.com/video/BV1Us4y1N7rd/)
+1. 基础模型：Meta 开源 LLaMA 系列模型
+2. Instruct-Tune：[https://github.com/tloen/alpaca-lora](https://github.com/tloen/alpaca-lora)
+
+由于，我们的目标不是对模型调优、生成通用的模型，而是训练特定用途的 Lora。因此，我们没有加入：[Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) 中的数据，
+故所需要时间更短，如 8000+ 测试代码只需要 1 小时，3400+ 的用户故事只需要 25 分钟。
 
 训练步骤见：
 
@@ -32,15 +44,6 @@ PS：训练烧钱……（调用 OpenAI 生成数据（仅限于需求细化）�
     <td><img src="images/zsxq.pic.jpg" alt="2" width = 240px ></td>
   </tr>
 </table>
-
-## 基本知识
-
-相关背景：
-
-1. 基础模型：Meta 开源 LLaMA 系列模型
-2. Instruct-Tune：[https://github.com/tloen/alpaca-lora](https://github.com/tloen/alpaca-lora)
-
-由于，我们的目标不是对模型调优，生成通用的模型。而是训练特定用途的 Lora，所以，我们没有加入：[Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) 中的数据。因此，时间更短，如 8000+ 测试代码只需要 1 小时，3400+ 的用户故事只需要 25 分钟。
 
 ## 训练 1：根据业务代码生成测试代码
 
@@ -214,6 +217,10 @@ AC 1:  莉莉妈可以选择宝贝出行服务
 
 训练结果 Lora 见：https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.3
 
+思路：
+
+![Copilot Element](images/copilot-elements.png)
+
 ### 步骤 1. 准备数据
 
 1. 下载 GitHub 上的项目（需要包含测试用例）
@@ -236,6 +243,47 @@ PostService(PostRepository, UserRepository, ImageService)
 
 ```
 {"instruction":"Implement the method action","input":"com.thoughtworks.go.config.rules.AbstractDirective(DirectiveType, DirectiveType, String, String, String)\n- fields: action:String, type:String, resource:String, configErrors:ConfigErrors, directiveType:DirectiveType\n- methods: validate(ValidationContext): void, isInvalid(String, List<String>): boolean, matchesAction(String): boolean, matchesType(Class<? extends Validatable>): boolean, matchesResource(String): boolean, errors(): ConfigErrors, addError(String, String): void, equals(Object): boolean, action(): String, type(): String, resource(): String, hashCode(): int, hasErrors(): boolean, getDirectiveType(): DirectiveType","output":"public abstract class AbstractDirective implements Directive {\n\n    @ConfigAttribute(value = \"action\", optional = false)\n    protected String action;\n\n    @ConfigAttribute(value = \"type\", optional = false)\n    protected String type;\n\n    @ConfigValue\n    private String resource;\n\n    private final ConfigErrors configErrors = new ConfigErrors();\n\n    private DirectiveType directiveType;\n\n    public AbstractDirective(DirectiveType allow) {\n        this.directiveType = allow;\n    }\n\n    public AbstractDirective(DirectiveType allow, String action, String type, String resource) {\n        this.directiveType = allow;\n        this.action = action;\n        this.type = type;\n        this.resource = resource;\n    }\n\n    @Override\n    public String action() {\n        return this.action;\n    }\n}\n"}
+```
+
+### 类信息格式
+
+格式规范：
+
+```
+包名.类名(类的构造类型)
+- fields：成员变量集合（变量名:类型）
+- methods：方法抽象集合（方法名(参数类型): 输出类型）
+```
+
+结果：
+
+```
+com.thoughtworks.go.config.rules.AbstractDirective(DirectiveType, DirectiveType, String, String, String)
+- fields: action:String, type:String, resource:String, configErrors:ConfigErrors, directiveType:DirectiveType
+- methods: validate(ValidationContext): void, isInvalid(String, List<String>): boolean, matchesAction(String): boolean, matchesType(Class<? extends Validatable>): boolean, matchesResource(String): boolean, errors(): ConfigErrors, addError(String, String): void, equals(Object): boolean, action(): String, type(): String, resource(): String, hashCode(): int, hasErrors(): boolean, getDirectiveType(): DirectiveType
+```
+
+### 核心代码逻辑
+
+```kotlin
+val javaProcessor = JavaProcessor(file.readText())
+val shotClass = javaProcessor.toShortClass() ?: return@forEach
+
+javaProcessor
+   .removePackage()
+   .removeAllImport()
+   .removeLicenseInfoBeforeImport()
+
+javaProcessor.splitMethods().forEach { (key, value) ->
+   CodegenPrompt(
+       instruction = "Implement the method $key",
+       input = shotClass.toString(),
+       output = value
+   ).let { prompt ->
+       val output = Json.encodeToString(prompt)
+       File("$targetPath${key}.json").writeText(output)
+   }
+}
 ```
 
 ### 步骤 2. 训练
