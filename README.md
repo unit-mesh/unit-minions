@@ -18,7 +18,7 @@ Roadmap：
 - 方式 2：直接使用：[OpenBayes 容器](https://openbayes.com/console/phodal/containers/JBx5YD7HTdS) （PS：使用我的专用邀请链接，注册 OpenBayes，双方各获得 60 分钟 RTX 3090 使用时长，支持累积，永久有效：
 https://openbayes.com/console/signup?r=phodal_uVxU) ）
 
-PS：训练烧钱……（调用 OpenAI 生成数据、云 GPU），如果你觉得帮到你，可以通过以下方式，帮助我们继续往前。
+PS：训练烧钱……（调用 OpenAI 生成数据（仅限于需求细化）、云 GPU），如果你觉得帮到你，可以通过以下方式，帮助我们继续往前。
 
 <table>
   <tr>
