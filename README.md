@@ -6,9 +6,9 @@ Unit Minions 旨在训练 Unit Mesh 所需要的一系列 LoRA，由于过程数
 
 LLaMA 系列在线视频：
 
-- 《[自制 AI 编程 Lora：手把手教会 Alpaca 编写测试代码](https://www.bilibili.com/video/BV1jg4y1G7Xc/)》
-- 《[自制 AI 编程助手：自定义数据集 + 开源大模型 LLaMA + LoRA 训练](https://www.bilibili.com/video/BV1Rh411u74H/)》
-- 《[自己动手训练个 AI 产品经理：手把手教会 LLaMA 编写详细需求](https://www.bilibili.com/video/BV1Us4y1N7rd/)》
+- 《[代码生成](https://www.bilibili.com/video/BV1Rh411u74H/)》
+- 《[测试代码生成](https://www.bilibili.com/video/BV1jg4y1G7Xc/)》
+- 《[详细需求生成](https://www.bilibili.com/video/BV1Us4y1N7rd/)》
 
 ChatGLM 系列在线视频：
 
