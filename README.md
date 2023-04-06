@@ -1,5 +1,9 @@
 # 《AI 研发提效研究：自己动手训练 LoRA》 
 
+Unit Minions 旨在训练 Unit Mesh 所需要的一系列 LoRA，由于过程数据复杂，便顺便编写了这个指南。
+
+## Introduction
+
 LLaMA 系列在线视频：
 
 - 《[自制 AI 编程 Lora：手把手教会 Alpaca 编写测试代码](https://www.bilibili.com/video/BV1jg4y1G7Xc/)》
@@ -10,6 +14,8 @@ ChatGLM 系列在线视频：
 
 - TODOs
 
+### Roadmap
+
 Roadmap：
 
 - 训练 1：测试代码生成
@@ -19,6 +25,28 @@ Roadmap：
 - 训练 5：生成 API 代码（设计中）
 - 训练 6：……
 - 训练 7：生成 Unit Mesh 的代码块
+
+### Sponsors
+
+Thanks: [AIOS Club](https://github.com/aios-chat) for OpenAI Key, Thanks [OpenBayes](https://openbayes.com/console/signup?r=phodal_uVxU) for Cloud GPU
+
+<a href="https://github.com/gzzengwei"><img src="https://avatars.githubusercontent.com/u/656662?s=70&v=4" width="30px" alt="gzzengwei" /></a>
+<a href="https://github.com/trampboy"><img src="https://avatars.githubusercontent.com/u/2819756?s=70&v=4" width="30px" alt="trampboy" /></a>
+<a href="https://github.com/daochouwangu"><img src="https://avatars.githubusercontent.com/u/4903149?s=120&v=4" width="30px" alt="daochouwangu" /></a>
+<a href="https://github.com/xuzongbao"><img src="https://avatars.githubusercontent.com/u/12446449?s=70&v=4" width="30px" alt="xuzongbao" /></a>
+<a href="https://github.com/stevenchendan"><img src="https://avatars.githubusercontent.com/u/30310671?s=70&v=4" width="30px" alt="stevenchendan" /></a>
+<a href="https://github.com/coderprepares"><img src="https://avatars.githubusercontent.com/u/66911083?s=64&v=4" width="30px" alt="coderprepares" /></a>
+<a href="https://github.com/go-maple"><img src="https://avatars.githubusercontent.com/u/97354215?s=64&v=4" width="30px" alt="go-maple" /></a>
+<a href="https://github.com/aios-chat"><img src="https://avatars.githubusercontent.com/u/126129567?v=4" width="30px" alt="aios-chat" /></a>
+
+PS：训练烧钱……（调用 OpenAI 生成数据（仅限于需求细化）、云 GPU），如果你觉得帮到你，可以通过以下方式，帮助我们继续往前。
+
+<table>
+  <tr>
+    <td><img src="images/alipay.pic.jpg"  alt="1" width = 240px  ></td>
+    <td><img src="images/zsxq.pic.jpg" alt="2" width = 240px ></td>
+  </tr>
+</table>
 
 # 基于 Meta 的 Llama 训练 LoRA
 
@@ -35,15 +63,6 @@ Roadmap：
 - 方式 1：直接使用：[alpaca-lora.ipynb](alpaca-lora.ipynb) 
 - 方式 2：直接使用：[OpenBayes 容器](https://openbayes.com/console/phodal/containers/JBx5YD7HTdS) （PS：使用我的专用邀请链接，注册 OpenBayes，双方各获得 60 分钟 RTX 3090 使用时长，支持累积，永久有效：
 https://openbayes.com/console/signup?r=phodal_uVxU) ）
-
-PS：训练烧钱……（调用 OpenAI 生成数据（仅限于需求细化）、云 GPU），如果你觉得帮到你，可以通过以下方式，帮助我们继续往前。
-
-<table>
-  <tr>
-    <td><img src="images/alipay.pic.jpg"  alt="1" width = 240px  ></td>
-    <td><img src="images/zsxq.pic.jpg" alt="2" width = 240px ></td>
-  </tr>
-</table>
 
 ## 训练 1：根据业务代码生成测试代码
 
