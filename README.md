@@ -12,6 +12,11 @@ Roadmap：
 
 # 基于 Meta 的 Llama 训练 LoRA
 
+在线视频：
+
+- [自制 AI 编程 Lora：手把手教会 Alpaca 编写测试代码](https://www.bilibili.com/video/BV1jg4y1G7Xc/)
+- [自制 AI 编程助手：自定义数据集 + 开源大模型 LLaMA + LoRA 训练](https://www.bilibili.com/video/BV1Rh411u74H/)
+
 训练步骤见：
 
 - 方式 1：直接使用：[alpaca-lora.ipynb](alpaca-lora.ipynb) 
