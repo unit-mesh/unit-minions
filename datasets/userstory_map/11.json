@@ -1,1 +1,0 @@
-{"input": " Marketing and Advertising", "output": "\n\nMap {\nMarketing {\nDisplay campaigns,\nCreate campaigns,\nAnalyze campaigns,\nManage campaigns,\nTrack campaigns\n}\nAdvertising {\nCreate ads,\nManage ads,\nAnalyze ads,\nTrack ads,\nOptimize ads\n}\n}"}
