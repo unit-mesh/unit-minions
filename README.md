@@ -147,6 +147,12 @@ public class AbstractContractValidatorTest {
 
 训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb)
 
+### 示例输出
+
+```
+
+```
+
 ## 训练 2：拆分用户故事
 
 训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb) 或者直接使用 OpenBayes 容器：https://openbayes.com/console/phodal/containers/JBx5YD7HTdS
@@ -167,7 +173,6 @@ public class AbstractContractValidatorTest {
 如下所示：
 
 ![](images/alpaca-user-story-lora.jpeg)
-
 
 ### 步骤 1. 准备数据
 
@@ -212,6 +217,28 @@ AC 1:  莉莉妈可以选择宝贝出行服务
 ### 步骤 2. 训练
 
 训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb)
+
+### 示例输出
+
+```
+print(evaluate("create Agile user story for following topic: ", "购买电影票", 0.1, 0.75, 40, 4, 512))
+
+用户故事：可以购买电影票
+作为一个电影票购买者
+我想在购买电影票应用中购买电影票
+以便于我可以购买电影票
+AC 1: 电影票购买者可以在购买电影票应用中购买电影票
+假设 电影票购买者已经登录购买电影票应用
+当 电影票购买者点击“购买电影票”按钮
+于是 电影票购买者可以在购买电影票应用中购买电影票
+AC 2: 电影票购买者可以在购买电影票应用中查看购买记录
+假设 电影票购买者已经登录购买电影票应用
+当 电影票购买者点击“查看购买记录”按钮
+于是 电影票购买者可以在购买电影票应用中查看购买记录
+AC 3: 电影票购买者可以在购买电影票应用中查看购买记录
+假设 电影票购买者已经登录购买电影票应用
+当 电影票购买者点击“查看购买记录”按��
+```
 
 ## 训练 3：代码辅助
 
@@ -290,4 +317,28 @@ javaProcessor.splitMethods().forEach { (key, value) ->
 
 训练步骤可以直接使用： [alpaca-lora.ipynb](alpaca-lora.ipynb)
 
+### 示例输出
 
+```
+print(evaluate("Implement the method rmFiles", "FileUtils:", 0.1, 0.75, 40, 4, 512))
+
+public class FileUtils {
+
+    private FileUtils() {
+    }
+
+    public static void rmFiles(String path) {
+        File dir = new File(path);
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    file.delete();
+                } else if (file.isDirectory()) {
+                    FileUtils.rmFiles(file.getAbsolutePath());
+                }
+            }
+        }
+    }
+}
+```
