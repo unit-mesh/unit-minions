@@ -48,6 +48,8 @@ PS：训练烧钱……（调用 OpenAI 生成数据（仅限于需求细化）�
   </tr>
 </table>
 
+用支付宝的同学记得注明你的 GitHub id。
+
 # 基于 Meta 的 Llama 训练 LoRA
 
 相关背景：
