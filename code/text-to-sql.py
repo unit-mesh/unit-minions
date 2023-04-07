@@ -26,4 +26,4 @@ with open('../datasets/sql/sql-train.csv', 'r') as f:
 
 with open('../datasets/sql/sql-train.jsonl', 'w') as f:
     for row in data:
-        f.write(json.dumps(row))
+        f.write(json.dumps(row) + '\n')
