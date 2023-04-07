@@ -2,6 +2,33 @@
 
 Unit Minions 旨在训练 Unit Mesh 所需要的一系列 LoRA，由于过程数据复杂，便顺便编写了这个指南。
 
+1. [《AI 研发提效研究：自己动手训练 LoRA》](#%E3%80%8Aai-%E7%A0%94%E5%8F%91%E6%8F%90%E6%95%88%E7%A0%94%E7%A9%B6%EF%BC%9A%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E8%AE%AD%E7%BB%83-lora%E3%80%8B)
+    1. [Introduction](#introduction)
+        1. [Roadmap](#roadmap)
+        2. [Sponsors](#sponsors)
+2. [总结设计：流程标准化](#%E6%80%BB%E7%BB%93%E8%AE%BE%E8%AE%A1%EF%BC%9A%E6%B5%81%E7%A8%8B%E6%A0%87%E5%87%86%E5%8C%96)
+    1. [研发效能](#%E7%A0%94%E5%8F%91%E6%95%88%E8%83%BD)
+    2. [Unit Mesh](#unit-mesh)
+3. [数据生成：质量驱动](#%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90%EF%BC%9A%E8%B4%A8%E9%87%8F%E9%A9%B1%E5%8A%A8)
+    1. [用户故事生成](#%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B%E7%94%9F%E6%88%90)
+        1. [步骤 1. 生成用户任务](#%E6%AD%A5%E9%AA%A4-1.-%E7%94%9F%E6%88%90%E7%94%A8%E6%88%B7%E4%BB%BB%E5%8A%A1)
+        1. [步骤 2. 分解用户任务为用户故事](#%E6%AD%A5%E9%AA%A4-2.-%E5%88%86%E8%A7%A3%E7%94%A8%E6%88%B7%E4%BB%BB%E5%8A%A1%E4%B8%BA%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B)
+    2. [代码生成](#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90)
+        1. [步骤 1. 准备数据](#%E6%AD%A5%E9%AA%A4-1.-%E5%87%86%E5%A4%87%E6%95%B0%E6%8D%AE)
+        2. [步骤 2. 生成指令](#%E6%AD%A5%E9%AA%A4-2.-%E7%94%9F%E6%88%90%E6%8C%87%E4%BB%A4)
+        3. [类信息格式](#%E7%B1%BB%E4%BF%A1%E6%81%AF%E6%A0%BC%E5%BC%8F)
+        4. [其它：核心代码逻辑](#%E5%85%B6%E5%AE%83%EF%BC%9A%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81%E9%80%BB%E8%BE%91)
+    3. [测试代码生成](#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90)
+        1. [步骤 1. 生成测试代码](#%E6%AD%A5%E9%AA%A4-1.-%E7%94%9F%E6%88%90%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81)
+        2. [步骤 2. 借助 OpenAI Davinci 编写实现代码（可选）](#%E6%AD%A5%E9%AA%A4-2.-%E5%80%9F%E5%8A%A9-openai-davinci-%E7%BC%96%E5%86%99%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89)
+4. [训练阶段](#%E8%AE%AD%E7%BB%83%E9%98%B6%E6%AE%B5)
+    1. [基于 Meta 的 Llama 训练 LoRA](#%E5%9F%BA%E4%BA%8E-meta-%E7%9A%84-llama-%E8%AE%AD%E7%BB%83-lora)
+        1. [训练 2：测试代码生成](#%E8%AE%AD%E7%BB%83-2%EF%BC%9A%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90)
+        2. [训练 2：拆分用户故事](#%E8%AE%AD%E7%BB%83-2%EF%BC%9A%E6%8B%86%E5%88%86%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B)
+        3. [训练 3：代码辅助](#%E8%AE%AD%E7%BB%83-3%EF%BC%9A%E4%BB%A3%E7%A0%81%E8%BE%85%E5%8A%A9)
+    2. [基于清华大学的 ChatGLM 微调](#%E5%9F%BA%E4%BA%8E%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6%E7%9A%84-chatglm-%E5%BE%AE%E8%B0%83)
+
+
 ## Introduction
 
 LLaMA 系列在线视频：
@@ -434,3 +461,8 @@ public class FileUtils {
     }
 }
 ```
+
+
+## 基于清华大学的 ChatGLM 微调
+
+Todos
