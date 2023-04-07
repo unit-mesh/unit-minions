@@ -31,6 +31,8 @@ Unit Minions 旨在训练 Unit Mesh 所需要的一系列 LoRA，由于过程数
 
 ## Introduction
 
+相关数据转换参见：[https://github.com/unit-mesh/minions-data-prepare](https://github.com/unit-mesh/minions-data-prepare)
+
 LLaMA 系列在线视频：
 
 - 《[代码生成](https://www.bilibili.com/video/BV1Rh411u74H/)》
