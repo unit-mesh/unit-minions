@@ -12,7 +12,7 @@ Unit Minions 旨在训练 Unit Mesh 所需要的一系列 LoRA，由于过程数
 3. [数据生成：质量驱动](#%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90%EF%BC%9A%E8%B4%A8%E9%87%8F%E9%A9%B1%E5%8A%A8)
     1. [用户故事生成](#%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B%E7%94%9F%E6%88%90)
         1. [步骤 1. 生成用户任务](#%E6%AD%A5%E9%AA%A4-1.-%E7%94%9F%E6%88%90%E7%94%A8%E6%88%B7%E4%BB%BB%E5%8A%A1)
-        1. [步骤 2. 分解用户任务为用户故事](#%E6%AD%A5%E9%AA%A4-2.-%E5%88%86%E8%A7%A3%E7%94%A8%E6%88%B7%E4%BB%BB%E5%8A%A1%E4%B8%BA%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B)
+        2. [步骤 2. 分解用户任务为用户故事](#%E6%AD%A5%E9%AA%A4-2.-%E5%88%86%E8%A7%A3%E7%94%A8%E6%88%B7%E4%BB%BB%E5%8A%A1%E4%B8%BA%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B)
     2. [代码生成](#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90)
         1. [步骤 1. 准备数据](#%E6%AD%A5%E9%AA%A4-1.-%E5%87%86%E5%A4%87%E6%95%B0%E6%8D%AE)
         2. [步骤 2. 生成指令](#%E6%AD%A5%E9%AA%A4-2.-%E7%94%9F%E6%88%90%E6%8C%87%E4%BB%A4)
@@ -45,13 +45,13 @@ ChatGLM 系列在线视频：
 
 Roadmap：
 
-- 训练 1：测试代码生成
-- 训练 2：生成用户故事
-- 训练 3：生成代码
-- 训练 4：SQL 转换
-- 训练 5：生成 API 代码（设计中）
-- 训练 6：……
-- 训练 7：生成 Unit Mesh 的代码块
+- 训练：测试代码生成（Done）
+- 训练：生成用户故事（Done）
+- 训练：生成代码（Done）
+- 训练：SQL 转换（Doing）
+- 训练：生成 API 代码（设计中）
+- 训练：……
+- 训练：生成 Unit Mesh 的代码块
 
 ### Sponsors
 
@@ -367,21 +367,30 @@ public class AbstractContractValidatorTest {
 
 ## 基于 Meta 的 Llama 训练 LoRA
 
-相关背景：
-
-1. 基础模型：Meta 开源 LLaMA 系列模型
-2. Instruct-Tune：[https://github.com/tloen/alpaca-lora](https://github.com/tloen/alpaca-lora)
-
-由于，我们的目标不是对模型调优、生成通用的模型，而是训练特定用途的 Lora。因此，我们没有加入：[Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca) 中的数据，
-故所需要时间更短，如 8000+ 测试代码只需要 1 小时，3400+ 的用户故事只需要 25 分钟。
-
-训练步骤见：
+训练：
 
 - 方式 1：直接使用：[alpaca-lora.ipynb](alpaca-lora.ipynb) 
 - 方式 2：直接使用：[OpenBayes 容器](https://openbayes.com/console/phodal/containers/JBx5YD7HTdS) （PS：使用我的专用邀请链接，注册 OpenBayes，双方各获得 60 分钟 RTX 3090 使用时长，支持累积，永久有效：
 https://openbayes.com/console/signup?r=phodal_uVxU) ）
 
-### 训练 2：测试代码生成
+训练时间：
+
+- 3400+ 用户故事，约 25 分钟
+- 8000+ 测试代码，约 1 小时
+- 10000+ 代码生成，约 1.5 小时
+- 20000+ 代码生成，约 3 小时
+- 40000+ 代码生成，约 6 小时
+
+相关背景：
+
+1. 基础模型：Meta 开源 LLaMA 系列模型：[llama-7b-hf](https://huggingface.co/decapoda-research/llama-7b-hf)
+2. Stanford Alpaca: [https://github.com/tatsu-lab/stanford_alpaca](https://github.com/tatsu-lab/stanford_alpaca)
+3. Alpaca Lora：[https://github.com/tloen/alpaca-lora](https://github.com/tloen/alpaca-lora)
+
+由于，我们的目标不是对模型调优、生成通用的模型，而是训练特定用途的 Lora。因此，我们没有加入：Stanford Alpaca 中的数据，
+故所需要时间更短，如 8000+ 测试代码只需要 1 小时，3400+ 的用户故事只需要 25 分钟。
+
+### 训练 1：测试代码生成
 
 训练结果（LoRA）见：[https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.1](https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.1)
 
@@ -462,7 +471,6 @@ public class FileUtils {
 }
 ```
 
-
-## 基于清华大学的 ChatGLM 微调
+## 基于清华大学的 ChatGLM 训练 LoRA
 
 Todos
