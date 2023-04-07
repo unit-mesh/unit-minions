@@ -51,7 +51,7 @@ Roadmap：
 - 训练：生成用户故事（Done）
 - 训练：生成代码（Done）
 - 训练：SQL 转换（Doing）
-- 训练：生成 API 代码（设计中）
+- 训练：文本转代码（Doing）
 - 训练：……
 - 训练：生成 Unit Mesh 的代码块
 
