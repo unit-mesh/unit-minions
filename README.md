@@ -102,6 +102,7 @@ Todos
 
 我们使用非常简单的 instruct，并尽可能提供，以便于集成到工具中使用。如下：
 
+- 拆分任务。instruction：split user story tasks，input：折分用户故事任务
 - 需求细化。instruction：create Agile user story for following topic，input：功能的基本信息
 - 代码生成。instruction：Implement the method xxx，input：类的基本信息
 - 测试生成。instruction：Write test for follow code，input：类的基本信息
