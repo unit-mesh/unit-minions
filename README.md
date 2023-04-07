@@ -50,9 +50,36 @@ PS：训练烧钱……（调用 OpenAI 生成数据（仅限于需求细化）�
 
 用支付宝的同学记得注明你的 GitHub id。
 
-# 总结设计阶段：研发效能流程标准化
+# 总结设计：流程标准化
+
+Unit Mesh 依赖于对研发效能的标准化。
+
+## 研发效能
+
+为了训练的结果更加准确，我们详细拆分了软件开发的步骤，以确保每一步生成的是准确，进而驱动出准确的结果。如下是我们拆分的一小部分细流程的示例：
+
+- design_restful_api
+- design_plantuml_java_datastructure
+- implementation_spring_controller
+- implementation_controller_test
+- implementation_spring_service
+- ….
+
+我们需要拆分到每一个尽可能小的步骤，在每一个细化的步骤里，喂入数据，才会让 AI 产生最大的复读机效果。
+
+## Unit Mesh
+
+Todos
 
 # 数据生成：质量驱动
+
+我们使用非常简单的 instruct，并尽可能提供，以便于集成到工具中使用。如下：
+
+- 需求细化。instruction：create Agile user story for following topic，input：功能的基本信息
+- 代码生成。instruction：Implement the method xxx，input：类的基本信息
+- 测试生成。instruction：Write test for follow code，input：类的基本信息
+
+从测试结果来看，随着数据量的增多，比如 20000 个代码用例比 10000 个代码用例更加的 “聪明”。
 
 ## 用户故事生成
 
