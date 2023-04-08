@@ -1998,3 +1998,4 @@
 {"instruction": "text to sql", "input": "What models have an a2 barrel profile?", "output": "SELECT Name FROM table WHERE Barrel profile = A2"}
 {"instruction": "text to sql", "input": "What hand guard system is used with a gas piston commando?", "output": "SELECT Hand guards FROM table WHERE Name = Gas Piston Commando"}
 {"instruction": "text to sql", "input": "What is the bayonet lug status for a m4 hbar and m4le carbine equipped?", "output": "SELECT Bayonet Lug FROM table WHERE Barrel profile = M4 HBAR AND Name = M4LE Carbine"}
+{"instruction": "text to sql", "input": "What is the bayonet lug status for a m4 hbar and m4le carbine equipped?", "output": "SELECT Bayonet Lug FROM table WHERE Barrel profile = M4 HBAR AND Name = M4LE Carbine"}
