@@ -38,6 +38,7 @@ LLaMA 系列在线视频：
 - 《[代码辅助生成](https://www.bilibili.com/video/BV1Rh411u74H/)》
 - 《[测试代码生成](https://www.bilibili.com/video/BV1jg4y1G7Xc/)》
 - 《[详细需求生成](https://www.bilibili.com/video/BV1Us4y1N7rd/)》
+- 《[文本转 SQL](https://www.bilibili.com/video/BV1uv4y1H7bg/)》
 
 ChatGLM 系列在线视频：
 
@@ -108,6 +109,7 @@ Todos
 - 需求细化。instruction：create Agile user story for following topic，input：功能的基本信息
 - 代码生成。instruction：Implement the method xxx，input：类的基本信息
 - 测试生成。instruction：Write test for follow code，input：类的基本信息
+- SQL 生成。instruction：text to sql，input：问题
 
 从测试结果来看，随着数据量的增多，比如 20000 个代码用例比 10000 个代码用例更加的 “聪明”。
 
