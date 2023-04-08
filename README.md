@@ -496,10 +496,13 @@ evaluate("text to sql", "What hand guard system is used with a gas piston comman
 
 ## 基于清华大学的 ChatGLM 训练 LoRA
 
-Todos
+训练：
+
+- 直接使用：[chatglm-tuning.ipynb](chatglm-tuning.ipynb)
 
 ### 代码生成
 
+### 测试生成
 
 ### 用户故事生成
 
