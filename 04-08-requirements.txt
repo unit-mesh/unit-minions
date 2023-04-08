@@ -1,0 +1,2 @@
+git+https://github.com/huggingface/transformers.git@c612628045822f909020f7eb6784c79700813eda
+git+https://github.com/huggingface/peft.git@e536616888d51b453ed354a6f1e243fecb02ea08
