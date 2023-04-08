@@ -11,7 +11,6 @@
 #   input: csv.question[index]
 #   output: csv.sql[index]
 # }]
-
 import csv
 import json
 

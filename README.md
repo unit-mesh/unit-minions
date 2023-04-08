@@ -476,7 +476,21 @@ public class FileUtils {
 
 ### SQL 转代码
 
+### 准备数据
 
+转换脚本：[code/text-to-sql.py](code/text-to-sql.py)
+
+直接从：[datasets/sql/sql-train.jsonl](datasets/sql/sql-train.jsonl)
+
+**示例输出**：
+
+```
+evaluate("text to sql", "谁是最美丽的人", 0.1, 0.75, 40, 4, 512)
+evaluate("text to sql", "小明今年几岁", 0.1, 0.75, 40, 4, 512)
+evaluate("text to sql", "What hand guard system is used with a gas piston commando?", 0.1, 0.75, 40, 4, 512)
+
+
+```
 
 ## 基于清华大学的 ChatGLM 训练 LoRA
 
