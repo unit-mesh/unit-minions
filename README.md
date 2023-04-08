@@ -48,6 +48,10 @@ ChatGLM 系列在线视频：
 
 - TODOs
 
+对比视频：
+
+- 《[LoRA 大比拼：ChatGLM vs LLaMA，谁更会写需求文档？](https://www.bilibili.com/video/BV1fv4y1n7Y3/)》
+
 ### Roadmap
 
 Roadmap：
