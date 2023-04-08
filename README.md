@@ -13,20 +13,24 @@ Unit Minions 旨在训练 Unit Mesh 所需要的一系列 LoRA，由于过程数
     1. [用户故事生成](#%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B%E7%94%9F%E6%88%90)
         1. [步骤 1. 生成用户任务](#%E6%AD%A5%E9%AA%A4-1.-%E7%94%9F%E6%88%90%E7%94%A8%E6%88%B7%E4%BB%BB%E5%8A%A1)
         2. [步骤 2. 分解用户任务为用户故事](#%E6%AD%A5%E9%AA%A4-2.-%E5%88%86%E8%A7%A3%E7%94%A8%E6%88%B7%E4%BB%BB%E5%8A%A1%E4%B8%BA%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B)
-    2. [代码辅助生成](#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90)
+    2. [代码辅助生成](#%E4%BB%A3%E7%A0%81%E8%BE%85%E5%8A%A9%E7%94%9F%E6%88%90)
         1. [步骤 1. 准备数据](#%E6%AD%A5%E9%AA%A4-1.-%E5%87%86%E5%A4%87%E6%95%B0%E6%8D%AE)
         2. [步骤 2. 生成指令](#%E6%AD%A5%E9%AA%A4-2.-%E7%94%9F%E6%88%90%E6%8C%87%E4%BB%A4)
         3. [类信息格式](#%E7%B1%BB%E4%BF%A1%E6%81%AF%E6%A0%BC%E5%BC%8F)
         4. [其它：核心代码逻辑](#%E5%85%B6%E5%AE%83%EF%BC%9A%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81%E9%80%BB%E8%BE%91)
     3. [测试代码生成](#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90)
         1. [步骤 1. 生成测试代码](#%E6%AD%A5%E9%AA%A4-1.-%E7%94%9F%E6%88%90%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81)
-        2. [步骤 2. 借助 OpenAI Davinci 编写实现代码（可选）](#%E6%AD%A5%E9%AA%A4-2.-%E5%80%9F%E5%8A%A9-openai-davinci-%E7%BC%96%E5%86%99%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89)
+        2. [步骤 2. 借助 OpenAI Davinci 编写实现代码（可选）](#%E6%AD%A5%E9%AA%A4-2.-%E5%80%9F%E5%8A%A9-openai-davinci-%E7%BC%96%E5%86%99%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%EF%BC%88%E5%8EF%BC%89)
 4. [训练阶段](#%E8%AE%AD%E7%BB%83%E9%98%B6%E6%AE%B5)
     1. [基于 Meta 的 Llama 训练 LoRA](#%E5%9F%BA%E4%BA%8E-meta-%E7%9A%84-llama-%E8%AE%AD%E7%BB%83-lora)
-        1. [训练 2：测试代码生成](#%E8%AE%AD%E7%BB%83-2%EF%BC%9A%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90)
+        1. [训练 1：测试代码生成](#%E8%AE%AD%E7%BB%83-1%EF%BC%9A%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90)
         2. [训练 2：拆分用户故事](#%E8%AE%AD%E7%BB%83-2%EF%BC%9A%E6%8B%86%E5%88%86%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B)
         3. [训练 3：代码辅助](#%E8%AE%AD%E7%BB%83-3%EF%BC%9A%E4%BB%A3%E7%A0%81%E8%BE%85%E5%8A%A9)
-    2. [基于清华大学的 ChatGLM 微调](#%E5%9F%BA%E4%BA%8E%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6%E7%9A%84-chatglm-%E5%BE%AE%E8%B0%83)
+        4. [SQL 转代码](#sql-%E8%BD%AC%E4%BB%A3%E7%A0%81)
+    1. [基于清华大学的 ChatGLM 训练 LoRA](#%E5%9F%BA%E4%BA%8E%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6%E7%9A%84-chatglm-%E8%AE%AD%E7%BB%83-lora)
+        1. [代码生成](#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90)
+        2. [测试生成](#%E6%B5%8B%E8%AF%95%E7%94%9F%E6%88%90)
+        3. [用户故事生成](#%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B%E7%94%9F%E6%88%90)
 
 
 ## Introduction
@@ -80,6 +84,8 @@ PS：训练烧钱……（调用 OpenAI 生成数据（仅限于需求细化）�
 
 用支付宝的同学记得注明你的 GitHub id。
 
+### 
+
 # 总结设计：流程标准化
 
 Unit Mesh 依赖于对研发效能的标准化。
@@ -110,6 +116,12 @@ Todos
 - 代码生成。instruction：Implement the method xxx，input：类的基本信息
 - 测试生成。instruction：Write test for follow code，input：类的基本信息
 - SQL 生成。instruction：text to sql，input：问题
+
+对应的功能介绍：
+
+- 需求细化。AI 辅助将模糊的需求转变为的需求设计，比如 “注册” 功能，生成为：”作为一个用户 xxx，填入用户名、密码信息等等，接着由人类去检查和完善。
+- 代码生成。AI 辅助将详细的需求设计翻译为目标的代码，再接着由人类去检查和完善。
+- 测试生成。AI 辅助根据生成的代码生成对应的测试代码，再接着由人类去检查和完善。
 
 从测试结果来看，随着数据量的增多，比如 20000 个代码用例比 10000 个代码用例更加的 “聪明”。
 
@@ -478,8 +490,6 @@ public class FileUtils {
 
 ### SQL 转代码
 
-### 准备数据
-
 转换脚本：[code/text-to-sql.py](code/text-to-sql.py)
 
 直接从：[datasets/sql/sql-train.jsonl](datasets/sql/sql-train.jsonl)
@@ -490,8 +500,6 @@ public class FileUtils {
 evaluate("text to sql", "谁是最美丽的人", 0.1, 0.75, 40, 4, 512)
 evaluate("text to sql", "小明今年几岁", 0.1, 0.75, 40, 4, 512)
 evaluate("text to sql", "What hand guard system is used with a gas piston commando?", 0.1, 0.75, 40, 4, 512)
-
-
 ```
 
 ## 基于清华大学的 ChatGLM 训练 LoRA
