@@ -1,6 +1,25 @@
 # 《AI 研发提效研究：自己动手训练 LoRA》 
 
-Unit Minions 旨在训练 Unit Mesh 所需要的一系列 LoRA，由于过程数据复杂，便顺便编写了这个指南。
+对于工程师而言，我们可以显而易见的看到 ChatGPT 等大语言模型带来的影响，借此我和我的同事们一起展开了 AI 对于研发效能提升的研究。我们训练了几个
+LLaMA LoRA、ChatGLM LoRA 用来研究研发效能提升的方法。这个项目是我们的研究成果，包括了一些视频介绍、训练好的模型、训练代码、训练数据、训练过程中的一些记录。
+
+LLaMA 系列在线视频：
+
+- 《[代码辅助生成](https://www.bilibili.com/video/BV1Rh411u74H/)》
+- 《[测试代码生成](https://www.bilibili.com/video/BV1jg4y1G7Xc/)》
+- 《[详细需求生成](https://www.bilibili.com/video/BV1Us4y1N7rd/)》
+- 《[文本转 SQL](https://www.bilibili.com/video/BV1uv4y1H7bg/)》
+
+ChatGLM 系列在线视频：
+
+- TODOs
+
+对比视频：
+
+- 《[LoRA 大比拼：ChatGLM vs LLaMA，谁更会写需求文档？](https://www.bilibili.com/video/BV1fv4y1n7Y3/)》
+
+还有这个指南：
+
 
 1. [《AI 研发提效研究：自己动手训练 LoRA》](#%E3%80%8Aai-%E7%A0%94%E5%8F%91%E6%8F%90%E6%95%88%E7%A0%94%E7%A9%B6%EF%BC%9A%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E8%AE%AD%E7%BB%83-lora%E3%80%8B)
     1. [Introduction](#introduction)
@@ -36,21 +55,6 @@ Unit Minions 旨在训练 Unit Mesh 所需要的一系列 LoRA，由于过程数
 ## Introduction
 
 相关数据转换参见：[https://github.com/unit-mesh/minions-data-prepare](https://github.com/unit-mesh/minions-data-prepare)
-
-LLaMA 系列在线视频：
-
-- 《[代码辅助生成](https://www.bilibili.com/video/BV1Rh411u74H/)》
-- 《[测试代码生成](https://www.bilibili.com/video/BV1jg4y1G7Xc/)》
-- 《[详细需求生成](https://www.bilibili.com/video/BV1Us4y1N7rd/)》
-- 《[文本转 SQL](https://www.bilibili.com/video/BV1uv4y1H7bg/)》
-
-ChatGLM 系列在线视频：
-
-- TODOs
-
-对比视频：
-
-- 《[LoRA 大比拼：ChatGLM vs LLaMA，谁更会写需求文档？](https://www.bilibili.com/video/BV1fv4y1n7Y3/)》
 
 ### Roadmap
 
