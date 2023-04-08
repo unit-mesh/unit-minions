@@ -174,7 +174,7 @@ User Tasks:
 
 ### 步骤 2. 分解用户任务为用户故事
 
-2. 调用 OpenAI 根据用户任务创建用户故事。prompt 如下：
+1. 调用 OpenAI 根据用户任务创建用户故事。prompt 如下：
 
 ```markdown
 为下面的需求编写用户故事：${domain} 应用的 ${story_name} 功能。 要求如下：
@@ -435,6 +435,12 @@ public class ListFilesUsingJavaIOTest {
 ### 训练 2：拆分用户故事
 
 训练结果（LoRA）见：[https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.2](https://github.com/unit-mesh/unit-minions/releases/tag/v0.0.2)
+
+注意：
+
+1. 如果数据集太小，设置一下 val_set_size，比如：`--val_set_size 500`
+2. 如果数据集太小，设置一下 val_set_size，比如：`--val_set_size 500`
+3. 如果数据集太小，设置一下 val_set_size，比如：`--val_set_size 500`
 
 **示例输出**：
 
