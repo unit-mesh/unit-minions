@@ -5,6 +5,10 @@ LLaMA LoRA、ChatGLM LoRA 用来研究研发效能提升的方法。
 
 这个项目是我们的研究成果，包括了一些视频介绍、训练好的模型、训练代码、训练数据、训练过程中的一些记录。
 
+训练完的 LoRA 见 Release。
+
+在线试用预训练模型 https://huggingface.co/spaces/phodal/userstory （部署在 Huggingface）
+
 训练 Notebook：
 
 - [LLaMA Alpaca LoRA](alpaca-lora.ipynb)
