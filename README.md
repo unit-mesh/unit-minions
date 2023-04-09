@@ -8,7 +8,7 @@ LLaMA LoRA、ChatGLM LoRA 用来研究研发效能提升的方法。
 训练 Notebook：
 
 - [LLaMA Alpaca LoRA](alpaca-lora.ipynb)
-- [ChatGLM Tuning LoRA](chatglm-tuning.ipynb))
+- [ChatGLM Tuning LoRA](chatglm-tuning.ipynb)
 
 LLaMA 系列在线视频：
 
