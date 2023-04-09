@@ -5,6 +5,11 @@ LLaMA LoRA、ChatGLM LoRA 用来研究研发效能提升的方法。
 
 这个项目是我们的研究成果，包括了一些视频介绍、训练好的模型、训练代码、训练数据、训练过程中的一些记录。
 
+训练 Notebook：
+
+- [LLaMA Alpaca LoRA](alpaca-lora.ipynb)
+- [ChatGLM Tuning LoRA](chatglm-tuning.ipynb))
+
 LLaMA 系列在线视频：
 
 - 《[代码辅助生成](https://www.bilibili.com/video/BV1Rh411u74H/)》
@@ -20,7 +25,7 @@ ChatGLM 系列在线视频：
 
 - 《[LoRA 大比拼：ChatGLM vs LLaMA，谁更会写需求文档？](https://www.bilibili.com/video/BV1fv4y1n7Y3/)》
 
-还有这个指南：
+目录：
 
 
 1. [《AI 研发提效研究：自己动手训练 LoRA》](#%E3%80%8Aai-%E7%A0%94%E5%8F%91%E6%8F%90%E6%95%88%E7%A0%94%E7%A9%B6%EF%BC%9A%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E8%AE%AD%E7%BB%83-lora%E3%80%8B)
@@ -30,8 +35,8 @@ ChatGLM 系列在线视频：
 2. [总结设计：流程标准化](#%E6%80%BB%E7%BB%93%E8%AE%BE%E8%AE%A1%EF%BC%9A%E6%B5%81%E7%A8%8B%E6%A0%87%E5%87%86%E5%8C%96)
     1. [研发效能](#%E7%A0%94%E5%8F%91%E6%95%88%E8%83%BD)
     2. [Unit Mesh](#unit-mesh)
-3. [数据生成：质量驱动](#%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90%EF%BC%9A%E8%B4%A8%E9%87%8F%E9%A9%B1%E5%8A%A8)
-    1. [用户故事生成](#%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B%E7%94%9F%E6%88%90)
+3. [数据准备](#%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87)
+    1. [折分任务 + 用户故事生成](#%E6%8A%98%E5%88%86%E4%BB%BB%E5%8A%A1-+-%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B%E7%94%9F%E6%88%90)
         1. [步骤 1. 生成用户任务](#%E6%AD%A5%E9%AA%A4-1.-%E7%94%9F%E6%88%90%E7%94%A8%E6%88%B7%E4%BB%BB%E5%8A%A1)
         2. [步骤 2. 分解用户任务为用户故事](#%E6%AD%A5%E9%AA%A4-2.-%E5%88%86%E8%A7%A3%E7%94%A8%E6%88%B7%E4%BB%BB%E5%8A%A1%E4%B8%BA%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B)
     2. [代码辅助生成](#%E4%BB%A3%E7%A0%81%E8%BE%85%E5%8A%A9%E7%94%9F%E6%88%90)
@@ -41,14 +46,15 @@ ChatGLM 系列在线视频：
         4. [其它：核心代码逻辑](#%E5%85%B6%E5%AE%83%EF%BC%9A%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81%E9%80%BB%E8%BE%91)
     3. [测试代码生成](#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90)
         1. [步骤 1. 生成测试代码](#%E6%AD%A5%E9%AA%A4-1.-%E7%94%9F%E6%88%90%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81)
-        2. [步骤 2. 借助 OpenAI Davinci 编写实现代码（可选）](#%E6%AD%A5%E9%AA%A4-2.-%E5%80%9F%E5%8A%A9-openai-davinci-%E7%BC%96%E5%86%99%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%EF%BC%88%E5%8EF%BC%89)
-4. [训练阶段](#%E8%AE%AD%E7%BB%83%E9%98%B6%E6%AE%B5)
+        2. [步骤 2. 借助 OpenAI Davinci 编写实现代码（可选）](#%E6%AD%A5%E9%AA%A4-2.-%E5%80%9F%E5%8A%A9-openai-davinci-%E7%BC%96%E5%86%99%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89)
+    4. [文本转代码](#%E6%96%87%E6%9C%AC%E8%BD%AC%E4%BB%A3%E7%A0%81)
+4. [训练与结果](#%E8%AE%AD%E7%BB%83%E4%B8%8E%E7%BB%93%E6%9E%9C)
     1. [基于 Meta 的 Llama 训练 LoRA](#%E5%9F%BA%E4%BA%8E-meta-%E7%9A%84-llama-%E8%AE%AD%E7%BB%83-lora)
         1. [训练 1：测试代码生成](#%E8%AE%AD%E7%BB%83-1%EF%BC%9A%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90)
         2. [训练 2：拆分用户故事](#%E8%AE%AD%E7%BB%83-2%EF%BC%9A%E6%8B%86%E5%88%86%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B)
         3. [训练 3：代码辅助](#%E8%AE%AD%E7%BB%83-3%EF%BC%9A%E4%BB%A3%E7%A0%81%E8%BE%85%E5%8A%A9)
         4. [SQL 转代码](#sql-%E8%BD%AC%E4%BB%A3%E7%A0%81)
-    1. [基于清华大学的 ChatGLM 训练 LoRA](#%E5%9F%BA%E4%BA%8E%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6%E7%9A%84-chatglm-%E8%AE%AD%E7%BB%83-lora)
+    2. [基于清华大学的 ChatGLM 训练 LoRA](#%E5%9F%BA%E4%BA%8E%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6%E7%9A%84-chatglm-%E8%AE%AD%E7%BB%83-lora)
         1. [代码生成](#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90)
         2. [测试生成](#%E6%B5%8B%E8%AF%95%E7%94%9F%E6%88%90)
         3. [用户故事生成](#%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B%E7%94%9F%E6%88%90)
@@ -66,7 +72,7 @@ Roadmap：
 - 训练：生成用户故事（Done）
 - 训练：代码辅助生成（Done）
 - 训练：SQL 转换（Done）
-- 训练：文本转代码（Doing）
+- 训练：文本转代码（Done）
 - 训练：……
 - 训练：生成 Unit Mesh 的代码块
 
@@ -83,7 +89,7 @@ Thanks: [AIOS Club](https://github.com/aios-chat) for OpenAI Key, Thanks [OpenBa
 <a href="https://github.com/go-maple"><img src="https://avatars.githubusercontent.com/u/97354215?s=64&v=4" width="30px" alt="go-maple" /></a>
 <a href="https://github.com/aios-chat"><img src="https://avatars.githubusercontent.com/u/126129567?v=4" width="30px" alt="aios-chat" /></a>
 
-PS：训练烧钱……（调用 OpenAI 生成数据（仅限于需求细化）、云 GPU），如果你觉得帮到你，可以通过以下方式，帮助我们继续往前。
+PS：训练烧钱……（调用 OpenAI 生成数据、云 GPU），如果你觉得帮到你，可以通过以下方式，资助我们继续往前。
 
 <table>
   <tr>
@@ -92,20 +98,19 @@ PS：训练烧钱……（调用 OpenAI 生成数据（仅限于需求细化）�
   </tr>
 </table>
 
-用支付宝的同学记得注明你的 GitHub id。
-
-### 
-
 # 总结设计：流程标准化
 
-Unit Mesh 依赖于对研发效能的标准化。
+AI 感性提效依赖于对研发效能的标准化，并尽可能细地拆分每一个步骤。
 
 ## 研发效能
 
-为了训练的结果更加准确，我们详细拆分了软件开发的步骤，以确保每一步生成的是准确，进而驱动出准确的结果。如下是我们拆分的一小部分细流程的示例：
+为了训练的结果更加准确，我们详细拆分了软件开发的步骤，以确保每一步生成的是准确，进而驱动出准确的结果。如下是我们早期拆分的一小部分细流程的示例：
 
+- split_user_story_tasks
+- create_agile_user_story
 - design_restful_api
 - design_plantuml_java_datastructure
+- implementation_mock_mvc_test
 - implementation_spring_controller
 - implementation_controller_test
 - implementation_spring_service
@@ -117,7 +122,7 @@ Unit Mesh 依赖于对研发效能的标准化。
 
 Todos
 
-# 数据生成：质量驱动
+# 数据准备
 
 我们使用非常简单的 instruct，并尽可能提供，以便于集成到工具中使用。如下：
 
@@ -126,6 +131,7 @@ Todos
 - 代码生成。instruction：Implement the method xxx，input：类的基本信息
 - 测试生成。instruction：Write test for follow code，input：类的基本信息
 - SQL 生成。instruction：text to sql，input：问题
+- 文本转 Java 代码。instruction：text to java code，input：问题
 
 对应的功能介绍：
 
@@ -135,7 +141,7 @@ Todos
 
 从测试结果来看，随着数据量的增多，比如 20000 个代码用例比 10000 个代码用例更加的 “聪明”。
 
-## 用户故事生成
+## 折分任务 + 用户故事生成
 
 基本思路：
 
@@ -390,7 +396,16 @@ public class AbstractContractValidatorTest {
 
 ```
 
-# 训练阶段
+## 文本转代码
+
+使用的是已有的 Datasets，包括：
+
+- [text-to-sql](datasets/sql) - 用于将自然语言转换为 SQL 语句的数据集
+- [text-to-code](datasets/text-to-code) - 用于将自然语言转换为代码的数据集
+
+不过，这两个代码集质量都不高，但是基本可用。
+
+# 训练与结果
 
 ## 基于 Meta 的 Llama 训练 LoRA
 
