@@ -1,0 +1,6 @@
+# datasets
+# loralib
+# sentencepiece
+# accelerate
+# bitsandbytes
+gradio
