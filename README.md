@@ -9,8 +9,6 @@ LLaMA LoRA、ChatGLM LoRA 用来研究研发效能提升的方法。
 
 训练完的 LoRA 见 Release。
 
-在线试用预训练模型 https://huggingface.co/spaces/phodal/userstory （部署在 Huggingface）
-
 训练 Notebook：
 
 - [LLaMA Alpaca LoRA](alpaca-lora.ipynb)
@@ -69,6 +67,15 @@ ChatGLM 系列在线视频：
 ## Introduction
 
 相关数据转换参见：[https://github.com/unit-mesh/minions-data-prepare](https://github.com/unit-mesh/minions-data-prepare)
+
+### 云 GPU
+
+我们使用的是 OpenBayes 提供的云 GPU：https://openbayes.com/console/signup?r=phodal_uVxU
+
+OpenBayes 模型可以使用我们链接：
+
+- llamba-7b-hf：https://openbayes.com/console/phodal/models/HsAVoYwbSDp
+- chatglm-6b: https://openbayes.com/console/phodal/models/1ZGWaYFGmXZ
 
 ### Roadmap
 
