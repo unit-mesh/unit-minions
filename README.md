@@ -68,6 +68,8 @@ ChatGLM 系列在线视频：
 
 相关数据转换参见：[https://github.com/unit-mesh/minions-data-prepare](https://github.com/unit-mesh/minions-data-prepare)
 
+PS：如果你需要的是更好的代码生成，建议采用：[https://huggingface.co/Salesforce/codegen-16B-mono](https://huggingface.co/Salesforce/codegen-16B-mono)
+
 ### 云 GPU
 
 我们使用的是 OpenBayes 提供的云 GPU：https://openbayes.com/console/signup?r=phodal_uVxU
