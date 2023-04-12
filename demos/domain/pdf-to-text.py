@@ -1,3 +1,4 @@
+import glob
 import json
 import re
 
@@ -64,20 +65,17 @@ def read_pdf_file(file: str) -> list[str]:
     return text_list
 
 
-if __name__ == '__main__':
-    file = "domain-pdf.pdf"
-    question_answers = []
-    text_list = read_pdf_file(file)
+question_answers = []
 
+
+def process_pdf_to_question(file):
+    text_list = read_pdf_file(file)
     # merge all the text into one string
     page_text = ''.join(text_list)
-
     # write page_text to a file
     with open("domain-pdf.txt", "w") as fp:
         fp.write(page_text)
-
     lines = page_text.split('\n')
-
     start_question = False
     answer = ""
     last_question = ""
@@ -105,9 +103,24 @@ if __name__ == '__main__':
         "answer": answer
     })
 
+
+if __name__ == '__main__':
+    # fetch all files in the directory testsets/*.pdf
+    for file in glob.glob("testsets/*.pdf"):
+        process_pdf_to_question(file)
+
     print("question size: ", len(question_answers))
     # write question_answers to jsonl file
     with open("domain-pdf.jsonl", "w") as fp:
         for qa in question_answers:
             fp.write(json.dumps(qa))
             fp.write('\n')
+
+
+# use regex to match
+# input: 2017-10-10-005230.OF---长盛货币B-长盛货币市场基金托管协议.pdf, output: 长盛货币B
+# input: 2022-09-09-007725.OF---招商瑞文A-招商瑞文混合型证券投资基金招募说明书更新.pdf, output: 招商瑞文A
+def get_fund_name(file: str) -> str:
+    # get the name of the fund
+    name = re.search(r'---(.*?)-', file).group(1)
+    return name
