@@ -94,3 +94,5 @@ with open('sql/repositories-5k.jsonl', 'r') as f:
                 print(item)
 
             f.write(json.dumps(item) + '\n')
+
+# 6. domain knowledge
