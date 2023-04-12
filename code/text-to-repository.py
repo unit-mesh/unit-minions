@@ -2,8 +2,6 @@ import json
 import csv
 
 type_map = {}
-# open datasets/sql/types.json
-
 
 # open datasets/sql/prompts.json
 # create id map for prompts in datasets/sql/prompts.json
