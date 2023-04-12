@@ -87,12 +87,14 @@ if __name__ == '__main__':
             continue
 
         if is_valid_subtitle(line.strip()):
-            print(line)
-            if len(answer) > 0 and len(last_question) > 0:
-                question_answers.append((last_question, answer))
+            if len(answer) > 0:
+                question_answers.append({
+                    "question": last_question,
+                    "answer": answer
+                })
                 answer = ""
 
-            last_question = get_valid_title(line)
+            last_question = get_valid_subtitle(line)
             start_question = True
 
         if start_question:
@@ -109,5 +111,3 @@ if __name__ == '__main__':
         for qa in question_answers:
             fp.write(json.dumps(qa))
             fp.write('\n')
-
-
