@@ -122,12 +122,14 @@ def process_pdf_to_question(file: str):
 
 def create_questions(answer, fund_name, last_question):
     question_answers.append({
-        "question": '介绍一下' + fund_name + '的' + last_question + '?',
-        "answer": answer
+        "instruction": '介绍一下' + fund_name + '的' + last_question + '?',
+        "input": "",
+        "output": answer
     })
     question_answers.append({
-        "question": '什么是' + fund_name + last_question + '?',
-        "answer": answer
+        "instruction": '什么是' + fund_name + last_question + '?',
+        "input": "",
+        "output": answer
     })
 
 
