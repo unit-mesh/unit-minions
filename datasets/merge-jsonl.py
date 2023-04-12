@@ -63,7 +63,6 @@ with open('codegen/codegen.jsonl', 'r') as f:
             json.dump(row, f)
             f.write('\n')
 
-
 # 5. 生成 Kotlin 的 Repostiory 类方法
 type_map = {}
 id_prompt_map = {}
@@ -89,7 +88,6 @@ with open('sql/repositories-5k.jsonl', 'r') as f:
                 'input': row['output'] + "\n" + requiredType,
                 'output': row['input']
             }
-
 
             # print first row
             if idx == 0:
