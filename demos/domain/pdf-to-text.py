@@ -39,7 +39,7 @@ def get_valid_title(title: str) -> str:
         return ""
 
 
-def read_pdf_file(file: str) -> list[str]:
+def read_pdf_file(file: str, fund_name: str) -> list[str]:
     text_list = []
     with open(file, "rb") as fp:
         # Create a PDF object
@@ -68,17 +68,39 @@ def read_pdf_file(file: str) -> list[str]:
 question_answers = []
 
 
-def process_pdf_to_question(file):
-    text_list = read_pdf_file(file)
+# use regex to match
+# input: 2017-10-10-005230.OF---长盛货币B-长盛货币市场基金托管协议.pdf, output: 长盛货币B
+# input: 2022-09-09-007725.OF---招商瑞文A-招商瑞文混合型证券投资基金招募说明书更新.pdf, output: 招商瑞文A
+def get_fund_name(file: str) -> str:
+    # 定义匹配基金名称的正则表达式
+    pattern = re.compile(r'[\u4e00-\u9fa5\w]+\-\w+')
+
+    # 在文件名中搜索匹配的字符串
+    match = pattern.search(file)
+
+    if match:
+        # 返回匹配的基金名称
+        return match.group(0)
+    else:
+        # 如果找不到匹配的基金名称，则返回空字符串
+        return ""
+
+
+def process_pdf_to_question(file: str):
+    fund_name = get_fund_name(file)
+
+    text_list = read_pdf_file(file, fund_name)
     # merge all the text into one string
     page_text = ''.join(text_list)
     # write page_text to a file
     with open("domain-pdf.txt", "w") as fp:
         fp.write(page_text)
+
     lines = page_text.split('\n')
     start_question = False
     answer = ""
     last_question = ""
+
     for line in lines:
         if is_valid_title(line.strip()):
             start_question = False
@@ -86,10 +108,7 @@ def process_pdf_to_question(file):
 
         if is_valid_subtitle(line.strip()):
             if len(answer) > 0:
-                question_answers.append({
-                    "question": last_question,
-                    "answer": answer
-                })
+                create_questions(answer, fund_name, last_question)
                 answer = ""
 
             last_question = get_valid_subtitle(line)
@@ -98,8 +117,16 @@ def process_pdf_to_question(file):
         if start_question:
             answer += line
 
+    create_questions(answer, fund_name, last_question)
+
+
+def create_questions(answer, fund_name, last_question):
     question_answers.append({
-        "question": last_question,
+        "question": '介绍一下' + fund_name + '的' + last_question + '?',
+        "answer": answer
+    })
+    question_answers.append({
+        "question": '什么是' + fund_name + last_question + '?',
         "answer": answer
     })
 
@@ -115,12 +142,3 @@ if __name__ == '__main__':
         for qa in question_answers:
             fp.write(json.dumps(qa))
             fp.write('\n')
-
-
-# use regex to match
-# input: 2017-10-10-005230.OF---长盛货币B-长盛货币市场基金托管协议.pdf, output: 长盛货币B
-# input: 2022-09-09-007725.OF---招商瑞文A-招商瑞文混合型证券投资基金招募说明书更新.pdf, output: 招商瑞文A
-def get_fund_name(file: str) -> str:
-    # get the name of the fund
-    name = re.search(r'---(.*?)-', file).group(1)
-    return name
