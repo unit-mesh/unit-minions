@@ -71,25 +71,22 @@ question_answers = []
 # use regex to match
 # input: 2017-10-10-005230.OF---长盛货币B-长盛货币市场基金托管协议.pdf, output: 长盛货币B
 # input: 2022-09-09-007725.OF---招商瑞文A-招商瑞文混合型证券投资基金招募说明书更新.pdf, output: 招商瑞文A
-def get_fund_name(file: str) -> str:
-    # 定义匹配基金名称的正则表达式
-    pattern = re.compile(r'[\u4e00-\u9fa5\w]+\-\w+')
-
-    # 在文件名中搜索匹配的字符串
-    match = pattern.search(file)
-
+def extract_fund_name(file_name: str) -> str:
+    pattern = r'.OF---([\w-]+)-'
+    match = re.search(pattern, file_name)
     if match:
         # 返回匹配的基金名称
-        return match.group(0)
+        return match.group(1)
     else:
         # 如果找不到匹配的基金名称，则返回空字符串
         return ""
 
 
 def process_pdf_to_question(file: str):
-    fund_name = get_fund_name(file)
+    fund_name = extract_fund_name(file)
+    product_name = "招赢通:" + fund_name
 
-    text_list = read_pdf_file(file, fund_name)
+    text_list = read_pdf_file(file, product_name)
     # merge all the text into one string
     page_text = ''.join(text_list)
     # write page_text to a file
@@ -108,7 +105,7 @@ def process_pdf_to_question(file: str):
 
         if is_valid_subtitle(line.strip()):
             if len(answer) > 0:
-                create_questions(answer, fund_name, last_question)
+                create_questions(answer, product_name, last_question)
                 answer = ""
 
             last_question = get_valid_subtitle(line)
@@ -117,17 +114,17 @@ def process_pdf_to_question(file: str):
         if start_question:
             answer += line
 
-    create_questions(answer, fund_name, last_question)
+    create_questions(answer, product_name, last_question)
 
 
-def create_questions(answer, fund_name, last_question):
+def create_questions(answer, product_name, last_question):
     question_answers.append({
-        "instruction": '介绍一下' + fund_name + '的' + last_question + '?',
+        "instruction": '介绍一下 [' + product_name + '] 的' + last_question + '?',
         "input": "",
         "output": answer
     })
     question_answers.append({
-        "instruction": '什么是' + fund_name + last_question + '?',
+        "instruction": '什么是 [' + product_name + ']' + last_question + '?',
         "input": "",
         "output": answer
     })
