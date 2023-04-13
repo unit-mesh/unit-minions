@@ -39,7 +39,7 @@ def get_valid_title(title: str) -> str:
         return ""
 
 
-def read_pdf_file(file: str, fund_name: str) -> list[str]:
+def read_pdf_file(file: str) -> list[str]:
     text_list = []
     with open(file, "rb") as fp:
         # Create a PDF object
@@ -84,9 +84,11 @@ def extract_fund_name(file_name: str) -> str:
 
 def process_pdf_to_question(file: str):
     fund_name = extract_fund_name(file)
+    fund_name = re.sub(r'[A-Z]', '', fund_name)
     product_name = "招赢通:" + fund_name
+    print("product_name: ", product_name)
 
-    text_list = read_pdf_file(file, product_name)
+    text_list = read_pdf_file(file)
     # merge all the text into one string
     page_text = ''.join(text_list)
     # write page_text to a file
