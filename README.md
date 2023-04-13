@@ -444,6 +444,38 @@ test code:
 
 不过，这两个代码集质量都不高，但是基本可用。
 
+## 文本生成 repository
+
+### 数据准备
+
+1. 解析 Kotlin 项目代码，提取出所有的类和方法。
+2. 建立 Repository 方法与类型的对应关系。
+3. 生成 Repository 方法的基本信息。
+4. 调用 OpenAI 生成数据
+
+格式如下：
+
+```
+instruction:
+我想查找特定月份（monthly_id）下在某个日期（date）之前的所有费用（expense），以方便了解特定月份内的开销情况。
+input:
+data class ExpenseEntity(....)
+
+output:
+@Query("SELECT * FROM expense WHERE monthly_id = :recurringExpenseId AND date < :beforeDate")
+suspend fun getAllExpensesForRecurringExpenseBeforeDate(recurringExpenseId: Long, beforeDate: LocalDate): List<ExpenseEntity>
+```
+
+### 输出示例：
+
+```
+evaluate("text to kotlin repository with class", "我想查询指定年龄的用户（User）的博客数量。\n ###data class User(var age: Int, 
+val blogId: Int) data class Post(val title: String)###", 0.1, 0.75, 40, 4, 512)
+
+@Query("SELECT COUNT(*) FROM User WHERE age = :age")
+abstract fun getBlogCount(age: Int): Long
+```
+
 ## 领域知识
 
 ### 训练 1：PDF
