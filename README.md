@@ -23,10 +23,6 @@ LLaMA 系列在线视频：
 
 ChatGLM 系列在线视频：
 
-- TODOs
-
-对比视频：
-
 - 《[LoRA 大比拼：ChatGLM vs LLaMA，谁更会写需求文档？](https://www.bilibili.com/video/BV1fv4y1n7Y3/)》
 
 目录：
@@ -51,6 +47,10 @@ ChatGLM 系列在线视频：
         1. [步骤 1. 生成测试代码](#%E6%AD%A5%E9%AA%A4-1.-%E7%94%9F%E6%88%90%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81)
         2. [步骤 2. 借助 OpenAI Davinci 编写实现代码（可选）](#%E6%AD%A5%E9%AA%A4-2.-%E5%80%9F%E5%8A%A9-openai-davinci-%E7%BC%96%E5%86%99%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89)
     4. [文本转代码](#%E6%96%87%E6%9C%AC%E8%BD%AC%E4%BB%A3%E7%A0%81)
+    5. [文本生成 repository](#%E6%96%87%E6%9C%AC%E7%94%9F%E6%88%90-repository)
+        1. [数据准备](#%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87)
+        2. [输出示例：](#%E8%BE%93%E5%87%BA%E7%A4%BA%E4%BE%8B%EF%BC%9A)
+    6. [领域知识](#%E9%A2%86%E5%9F%9F%E7%9F%A5%E8%AF%86)
 4. [训练与结果](#%E8%AE%AD%E7%BB%83%E4%B8%8E%E7%BB%93%E6%9E%9C)
     1. [基于 Meta 的 Llama 训练 LoRA](#%E5%9F%BA%E4%BA%8E-meta-%E7%9A%84-llama-%E8%AE%AD%E7%BB%83-lora)
         1. [训练 1：测试代码生成](#%E8%AE%AD%E7%BB%83-1%EF%BC%9A%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90)
