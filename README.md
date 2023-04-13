@@ -1,4 +1,4 @@
-# 《AI 研发提效研究：自己动手训练 LoRA》 
+# 《AI 研发提效研究：自己动手训练 LoRA》
 
 声明：本项目提供的数据集、LoRA 二进制，皆为 OpenAI 生成或网上公开项目。我们仅提供了模型训练相关教程，使用者实际训练的内容所造成的一切后果由使用者本人负责。
 
@@ -31,7 +31,6 @@ ChatGLM 系列在线视频：
 
 目录：
 
-
 1. [《AI 研发提效研究：自己动手训练 LoRA》](#%E3%80%8Aai-%E7%A0%94%E5%8F%91%E6%8F%90%E6%95%88%E7%A0%94%E7%A9%B6%EF%BC%9A%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E8%AE%AD%E7%BB%83-lora%E3%80%8B)
     1. [Introduction](#introduction)
         1. [Roadmap](#roadmap)
@@ -63,7 +62,6 @@ ChatGLM 系列在线视频：
         2. [测试生成](#%E6%B5%8B%E8%AF%95%E7%94%9F%E6%88%90)
         3. [用户故事生成](#%E7%94%A8%E6%88%B7%E6%95%85%E4%BA%8B%E7%94%9F%E6%88%90)
 
-
 ## Introduction
 
 相关数据转换参见：[https://github.com/unit-mesh/minions-data-prepare](https://github.com/unit-mesh/minions-data-prepare)
@@ -83,6 +81,7 @@ OpenBayes 模型可以使用我们链接：
 
 Roadmap：
 
+- 训练：领域知识（Done）
 - 训练：测试代码生成（Done）
 - 训练：生成用户故事（Done）
 - 训练：代码辅助生成（Done）
@@ -93,7 +92,8 @@ Roadmap：
 
 ### Sponsors
 
-Thanks: [AIOS Club](https://github.com/aios-chat) for OpenAI Key, Thanks [OpenBayes](https://openbayes.com/console/signup?r=phodal_uVxU) for Cloud GPU
+Thanks: [AIOS Club](https://github.com/aios-chat) for OpenAI Key,
+Thanks [OpenBayes](https://openbayes.com/console/signup?r=phodal_uVxU) for Cloud GPU
 
 <a href="https://github.com/gzzengwei"><img src="https://avatars.githubusercontent.com/u/656662?s=70&v=4" width="30px" alt="gzzengwei" /></a>
 <a href="https://github.com/trampboy"><img src="https://avatars.githubusercontent.com/u/2819756?s=70&v=4" width="30px" alt="trampboy" /></a>
@@ -141,6 +141,7 @@ Todos
 
 我们使用非常简单的 instruct，并尽可能提供，以便于集成到工具中使用。如下：
 
+- 领域知识。instruction：领域知识。
 - 拆分任务。instruction：split user story tasks，input：折分用户故事任务
 - 需求细化。instruction：create Agile user story for following topic，input：功能的基本信息
 - 代码生成。instruction：Implement the method xxx，input：类的基本信息
@@ -173,17 +174,22 @@ Todos
 1. 调用 OpenAI 按分类创建用户任务。prompt 如下：
 
 ```markdown
-Design a User Story Mapping for ${domain} application based on your understanding. Here are the requirements: 
+Design a User Story Mapping for ${domain} application based on your understanding. Here are the requirements:
 
 1. Your user story map should include only user tasks to demonstrate how users will interact with the application.
-2. Our user story map should be based on your understanding of the ${domain} application and its users, and should be designed to address their needs and pain points.
-3. You may use any tools or formats you choose to create your user story map, but it should be easily shareable and understandable by stakeholders.
+2. Our user story map should be based on your understanding of the ${domain} application and its users, and should be
+   designed to address their needs and pain points.
+3. You may use any tools or formats you choose to create your user story map, but it should be easily shareable and
+   understandable by stakeholders.
 4. Your expression should be more concise and clear.
 5. Your return should be like as follows:
 
 ###
+
 User Tasks:
+
 1. ...
+
 ###
 ```
 
@@ -214,6 +220,7 @@ User Tasks:
 2. 你的返回模板如下所示：
 
 ###
+
 用户故事：可以选择宝贝出行服务
 作为 莉莉妈
 我想 在滴滴打车的手机客户端里选择宝贝出行服务
@@ -223,6 +230,7 @@ AC 1:  莉莉妈可以选择宝贝出行服务
 假设 xxx
 当 xxx
 于是 xxx
+
 ###
 ```
 
@@ -251,6 +259,7 @@ AC 1: 用户可以创建和上传动画和漫画
 1. 下载 GitHub 上的项目（需要包含测试用例）
 2. 遍历 `src/main` 下的 Java 文件。
 3. 生成每个类的基本信息：
+
 ```
 PostService(PostRepository, UserRepository, ImageService)
 - fields: postRepository:PostRepository, userRepository:UserRepository, userPosts:Set<Post>, imageService:ImageService
@@ -328,12 +337,15 @@ javaProcessor.splitMethods().forEach { (key, value) ->
 1. 下载 GitHub 上的项目（需要包含测试用例）
 2. 建立每个项目的 `src/main` 下的 Java 文件 map，如果同时存在对应的测试文件，则拉入的数据集中。
 3. 并生成每个测试对应的类的基本信息（以减少 OpenAI Token 使用）：
+
 ```
 org.unitmesh.processor.TestClass(String, Int)
 - fields: field1:String, field2:Int
 - methods: method1(String, Int): String, method2(): Int
 ```
+
 4. 按测试用例（即 @Test 方法）拆分每个测试文件，拆成 N 个（即 test1、test2 是两个不同的数据）
+
 ```java
 class TestProcessorTest {
     @Test
@@ -348,7 +360,12 @@ class TestProcessorTest {
 
 最后，生成的数据如下：
 
-{"classInfo": "com.thoughtworks.go.security.AESEncrypter(AESCipherProvider)\n- fields: ENCODER:Base64.Encoder, DECODER:Base64.Decoder, cipherProvider:AESCipherProvider, ivProvider:IVProvider\n- methods: createIVProviderInstance(): IVProvider, canDecrypt(String): boolean, encrypt(String): String, decrypt(String): String, createSecretKeySpec(): SecretKeySpec", "testMethod": "public class AESEncrypterTest {\n\n    private AESEncrypter aesEncrypter;\n\n    @Test\n    public void shouldGenerateEncryptedText() throws CryptoException {\n        String encrypt = aesEncrypter.encrypt(\"p@ssw0rd\");\n        assertThat(encrypt).startsWith(\"AES\");\n        assertThat(encrypt.split(\":\")).hasSize(3);\n    }\n}\n", "id": "task_0"}
+{"classInfo": "com.thoughtworks.go.security.AESEncrypter(AESCipherProvider)\n- fields: ENCODER:Base64.Encoder, DECODER:
+Base64.Decoder, cipherProvider:AESCipherProvider, ivProvider:IVProvider\n- methods: createIVProviderInstance():
+IVProvider, canDecrypt(String): boolean, encrypt(String): String, decrypt(String): String, createSecretKeySpec():
+SecretKeySpec", "testMethod": "public class AESEncrypterTest {\n\n private AESEncrypter aesEncrypter;\n\n @Test\n public
+void shouldGenerateEncryptedText() throws CryptoException {\n String encrypt = aesEncrypter.encrypt(\"p@ssw0rd\");\n
+assertThat(encrypt).startsWith(\"AES\");\n assertThat(encrypt.split(\":\")).hasSize(3);\n }\n}\n", "id": "task_0"}
 
 ### 步骤 2. 借助 OpenAI Davinci 编写实现代码（可选）
 
@@ -366,47 +383,54 @@ You are a programmer and implementation a method with TDD. Here are the requirem
 2. Try you best to thinking corner case.
 3. You only return the code, no explain.
 
-class information: 
+class information:
 
-### 
+###  
+
 io.github.robwin.swagger.test.AbstractContractValidator()
-- methods: findExpectedPaths(Swagger, SwaggerAssertionConfig): Map<String,Path>, getPathsIncludingBasePath(Swagger): Map<String,Path>, getPathsWithPrefix(Swagger, String): Map<String,Path>, isBlankOrSlash(String): boolean
+
+- methods: findExpectedPaths(Swagger, SwaggerAssertionConfig): Map<String,Path>, getPathsIncludingBasePath(Swagger):
+  Map<String,Path>, getPathsWithPrefix(Swagger, String): Map<String,Path>, isBlankOrSlash(String): boolean
+
 ###
 
-test code: 
+test code:
 
-### 
+###  
+
 /**
- * Tests AbstractContractValidator.
- */
-@RunWith(Enclosed.class)
-public class AbstractContractValidatorTest {
 
-    /**
-     * Tests getPathsIncludingBasePath().
-     */
-    public static class GetPathsIncludingBasePath {
+* Tests AbstractContractValidator.
+  */
+  @RunWith(Enclosed.class)
+  public class AbstractContractValidatorTest {
 
-        @Test
-        public void shouldReturnPathsPrefixedIfBasePathSet() {
-            // given
-            Swagger swagger = buildSwaggerFrom("/swagger.json");
-            // when
-            Map<String, Path> paths = new DummyValidator().getPathsIncludingBasePath(swagger);
-            // then
-            paths.entrySet().forEach(e -> assertThat(e.getKey(), startsWith(swagger.getBasePath())));
-        }
-    }
+  /**
+    * Tests getPathsIncludingBasePath().
+      */
+      public static class GetPathsIncludingBasePath {
 
-    /**
-     * Tests findExpectedPaths().
-     */
-    public static class FindExpectedPaths {
-    }
+      @Test
+      public void shouldReturnPathsPrefixedIfBasePathSet() {
+      // given
+      Swagger swagger = buildSwaggerFrom("/swagger.json");
+      // when
+      Map<String, Path> paths = new DummyValidator().getPathsIncludingBasePath(swagger);
+      // then
+      paths.entrySet().forEach(e -> assertThat(e.getKey(), startsWith(swagger.getBasePath())));
+      }
+      }
 
-    private static class DummyValidator extends AbstractContractValidator {
-    }
-}
+  /**
+    * Tests findExpectedPaths().
+      */
+      public static class FindExpectedPaths {
+      }
+
+  private static class DummyValidator extends AbstractContractValidator {
+  }
+  }
+
 ###
 
 ```
@@ -420,15 +444,36 @@ public class AbstractContractValidatorTest {
 
 不过，这两个代码集质量都不高，但是基本可用。
 
+## 领域知识
+
+### 训练 1：PDF
+
+基本思路：
+
+1. 将 PDF 文件转换为文本
+2. 将文本按标题的方式拆分成 `instruction` 和 `output` 两部分，`input` 为 null。
+
+示例：
+
+```
+instruction: 介绍一下财通财通宝的基金管理人、基金托管人在履行各自职责的过程中，违反《基金法》?
+
+（一）基金管理人、基金托管人在履行各自职责的过程中，违反《基金法》等法律法规的规定或者基金合同约定， 给基金财产或者基金份额持有人造成损害的，
+应当分别对各自的行为依法承担赔偿责任；因共同行为给基金财产或者基金份额持有人造成损害的，应当承担连带赔偿责任，对 损失的赔偿，仅限于直接损失。
+但是发生下列情况，当事人可以免责：  1.基金管理人及基金托管人按照中国证监会的规定或当时有效的法律法规的作为或不作为而造成的损失等； 
+ 2.基金管理人由于按照基金合同规定的投资原则而行使或不行使其投资权而造成的损失等；  3.不可抗力。  
+```
+
 # 训练与结果
 
 ## 基于 Meta 的 Llama 训练 LoRA
 
 训练：
 
-- 方式 1：直接使用：[alpaca-lora.ipynb](alpaca-lora.ipynb) 
-- 方式 2：直接使用：[OpenBayes 容器](https://openbayes.com/console/phodal/containers/JBx5YD7HTdS) （PS：使用我的专用邀请链接，注册 OpenBayes，双方各获得 60 分钟 RTX 3090 使用时长，支持累积，永久有效：
-https://openbayes.com/console/signup?r=phodal_uVxU) ）
+- 方式 1：直接使用：[alpaca-lora.ipynb](alpaca-lora.ipynb)
+- 方式 2：直接使用：[OpenBayes 容器](https://openbayes.com/console/phodal/containers/JBx5YD7HTdS) （PS：使用我的专用邀请链接，注册
+  OpenBayes，双方各获得 60 分钟 RTX 3090 使用时长，支持累积，永久有效：
+  https://openbayes.com/console/signup?r=phodal_uVxU) ）
 
 训练时间：
 
