@@ -72,10 +72,10 @@ PS：如果你需要的是更好的代码生成，建议采用：[https://huggin
 
 我们使用的是 OpenBayes 提供的云 GPU：https://openbayes.com/console/signup?r=phodal_uVxU
 
-OpenBayes 模型可以使用我们链接：
+OpenBayes 模型可以使用：
 
-- llamba-7b-hf：https://openbayes.com/console/phodal/models/HsAVoYwbSDp
-- chatglm-6b: https://openbayes.com/console/phodal/models/1ZGWaYFGmXZ
+- llamba-7b-hf：https://openbayes.com/console/open-tutorials/models/LHney50G1TB/1/overview
+- chatglm-6b: https://openbayes.com/console/open-tutorials/models/D24PPO2ItU4/1/overview
 
 ### Roadmap
 
