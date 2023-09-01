@@ -104,15 +104,6 @@ Thanks [OpenBayes](https://openbayes.com/console/signup?r=phodal_uVxU) for Cloud
 <a href="https://github.com/go-maple"><img src="https://avatars.githubusercontent.com/u/97354215?s=64&v=4" width="30px" alt="go-maple" /></a>
 <a href="https://github.com/aios-chat"><img src="https://avatars.githubusercontent.com/u/126129567?v=4" width="30px" alt="aios-chat" /></a>
 
-PS：训练烧钱……（调用 OpenAI 生成数据、云 GPU），如果你觉得帮到你，可以通过以下方式，资助我们继续往前。
-
-<table>
-  <tr>
-    <td><img src="images/alipay.pic.jpg"  alt="1" width = 240px  ></td>
-    <td><img src="images/zsxq.pic.jpg" alt="2" width = 240px ></td>
-  </tr>
-</table>
-
 # 总结设计：流程标准化
 
 AI 感性提效依赖于对研发效能的标准化，并尽可能细地拆分每一个步骤。
