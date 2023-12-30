@@ -1,5 +1,7 @@
 # 《AI 研发提效研究：自己动手训练 LoRA》
 
+PS：代码补全、文档生成相关的微调见：[https://github.com/unit-mesh/unit-eval](https://github.com/unit-mesh/unit-eval)
+
 声明：本项目提供的数据集、LoRA 二进制，皆为 OpenAI 生成或网上公开项目。我们仅提供了模型训练相关教程，使用者实际训练的内容所造成的一切后果由使用者本人负责。
 
 对于工程师而言，我们可以显而易见的看到 ChatGPT 等大语言模型带来的影响，借此我们展开了 AI 对于研发效能提升的研究 —— 训练了几个
